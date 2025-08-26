@@ -668,9 +668,9 @@ your-channel，在HC落成一段日子后，也曾是熙熙攘攘的用户聚集
 
 :: awy1-gfw [nobr] {"position":"1325,125","size":"100,100"}
 <<if def $gfw_bomb>>
-  <p class="awaya">“你一个人就把它炸掉了？佩服啊~”<br>
+  <p class="awaya">“你一个人就把它炸掉了？佩服啊~”</p><br>
 <<elseif visited("GFW-awy")>>
-  <p class="awaya">“怎么样，刚才我的样子很帅吧？”<br>
+  <p class="awaya">“怎么样，刚才我的样子很帅吧？”</p><br>
 <<else>>
   <p class="awaya">“那个，很久以前嘛，大概有过一次，打碎过它的说。<br>
   现在的体力赶不上年轻的时候啦……<br>
