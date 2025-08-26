@@ -1,0 +1,3172 @@
+:: StoryTitle
+quiz
+
+
+:: StoryData
+{
+  "ifid": "854F8913-DF82-4A64-8187-427245B7FD05",
+  "format": "SugarCube",
+  "format-version": "2.37.3",
+  "start": "主菜单",
+  "tag-colors": {
+    "autosave": "red",
+    "non-text": "orange",
+    "items": "blue"
+  },
+  "zoom": 0.6
+}
+
+
+:: 000 {"position":"2150,700","size":"100,100"}
+<p class="grey">“你好瓦。”</p>\
+你看着看着，谁知那鸡蛋忽然开口向你打招呼，
+低沉的嗓音，还以为是在和一位大叔对话。
+<p class="awaya">“诶嘿，吓到你了吗，抱歉~”</p>\
+阿瓦娅俏皮地解释，
+<p class="awaya">“这孩子还没能完全变成人形，正在修炼中呢。”</p>\
+鸡蛋转了个圈，表示同意。\
+
+<<if !visited("000-名字")>>
+[[询问他的名字->000-名字]]<</if>>
+[[询问关于GFW的事->000-gfw]]
+[[“为什么你是个鸡蛋？”->000-为何]]
+
+[[返回->lo-用户]] 
+
+
+:: 000-gfw {"position":"2300,850","size":"100,100"}
+<p class="grey">“G-F-W？那是什么瓦？”</p>\
+
+[[返回->000]] 
+
+
+:: 000-为何 {"position":"2050,850","size":"100,100"}
+<p class="grey">“应该说是一觉醒来就变成这个样子的吗……瓦，我也不太清楚。”</p>\
+
+[[返回->000]] 
+
+
+:: 000-名字 [nobr] {"position":"2175,850","size":"100,100"}
+<<if visited() == 1>><<set $name_count++>><</if>>
+<p class="grey">“瓦，我目前的名字是000。”</p>
+<<dpg "000">>
+  <p class="grey">“怎么，看来你也是颗鸡蛋吗，瓦瓦。”</p>
+<</dpg>>
+<br>
+[[返回->000]] 
+
+
+:: BOSS战 [nobr autosave] {"position":"1600,650","size":"100,100"}
+<<if !visited("r-完成")>>
+  7.<br>
+  ...<br>
+  ...<br>
+  <br>
+  把@@.blue;R@@带过来，再让你回答@@.hidden;[[下一题->第七题]]@@。<br>
+  <br>
+  <span id="wave-text">前几题发生了一些变化</span><br>
+  <<done>>
+    <<run setup.wave_text()>>
+  <</done>>
+  <<if $stage == 0>>
+    <br>
+    <<mission "找到R">>
+    <<set $stage = 1>>
+  <</if>>
+  <br>
+  [[上一题->第六题]]
+
+<<elseif def $r_bomb>>
+  7.<br>
+  ...<br>
+  ...<br>
+  <br>
+  把@@.blue;R@@带过来，再让你回答……<br>
+  <br>
+  什么？@@.shake;你把R炸了？！@@<br>
+  不……这太疯狂了。没有了他，这地方不可能继续运转下去的。<br>
+  就连——你瞧，现在连通往@@.hidden;[[下一题->第七题]]@@的出口也打不开了。<br>
+  你就永远被困在这里吧，呵呵……<br>
+  <br>
+  [[上一题->第六题]]
+  <<set $stage = 3>>
+
+<<else>>
+  <p class="grey">“原来如此，就是这里吗……”</p>
+  R盯着虚空发出感叹。<br>
+  你不明白意义何在，但看样子把他留在这里是没关系了。<br>
+  <br>
+  <<del_friend "R">>
+  <br>
+  [[下一题->第七题]]
+<<silent>><<mission "">><</silent>>
+<</if>>
+
+
+
+:: DE_1 {"position":"1700,1400","size":"100,100"}
+<div class="center">\
+<<nobr>>
+<h2 class="black">Dead Ending</h2>
+<h3 class="lemon">
+  <span style="font-size: 50%">Who Bomb Bombed</span><br>
+  玩火自焚
+</h3>
+<</nobr>>
+近日，一位精神失常的用户，
+使用非法爆炸物将自己炸得渣也不剩。
+现场没有其他人受伤。
+——《兰枝日报》阿瓦娅为您报道。
+
+[[菜单->主菜单][$last_p = ""]]
+</div>
+
+
+:: DPG [nobr] {"position":"1475,975","size":"100,100"}
+在你面前的是一个身披黑色外套，脸部被兜帽遮挡住的人——亦或说、生物？
+<p class="grey">“……”</p>
+
+<<dpg "DPG" "Doppelganger">>
+  <p class="grey">“?”</p>
+<</dpg>>
+
+<br>
+[[打招呼->dpg-招呼]]<br>
+
+<<if visited("r-可能")>>
+  [[“你和R之间发生什么了吗？”->dpg-withr]]<br>
+<</if>>
+
+<<if !(visited("r-完成") || $bag["RRRrrr"]) && visited("R")>>
+  [[索要RRRrrr->dpg-索要]]<br>
+<</if>>
+
+<<if $bag["打火机"]>>
+  [[给他打火机->dpg-打火机]]<br>
+<</if>>
+
+<<if $bag["魔爪"]>>
+  [[给他魔爪->dpg-魔爪]]<br>
+<</if>>
+
+<br>
+[[返回->第六题]]
+
+
+:: GFW [nobr autosave] {"position":"1200,675","size":"100,100"}
+<<if def $gfw_bomb>>
+  <<goto "第四题">>
+<<else>>
+“哐”一下，一道之前还没有的墙倏地降了下来，堵住你的去路。<br>
+一块又一块，砌合深棕色砖块的水泥干涸多时，厚重的墙面即使敲击也鲜有回音。<br>
+<<if def $bomb_at && $bomb_at == "gfw">>
+  墙角下，是你在这里安放过的炸弹。<br>
+<</if>>
+总而言之要先想办法过去才行。<br>
+<br>
+
+<<if visited() == 1>>
+  <<mission "翻越GFW">>
+<</if>>
+
+<<set_bomb "gfw">>
+
+<<if $friends.has("dodo")>>
+  [[让dodo载你飞过去->GFW-dodo]]<br>
+<<elseif $bag["一盒UNO"] && !visited("GFW-uno")>>
+  [[与GFW进行UNO对决->GFW-uno]]<br>
+<<elseif $friends.has("阿瓦娅")>>
+  [[让阿瓦娅打破GFW->GFW-awy]]<br>
+<</if>>
+
+<br>
+[[返回->第四题]]
+<</if>>
+
+
+:: GFW-awy {"position":"1075,800","size":"100,100"}
+<p class="awaya">“OK，交给我吧。”</p>\
+
+阿瓦娅站在GFW面前，深深地吸了一口气，闭上眼。
+她伸出右手，食指笔直地指向墙中央。
+
+HC十数年间进化出的精华、养育她的水土：
+阴云密布的天空、磨牙吮血的蟒蛇、
+蔓延的杂草、闻起来在发霉的木板道、
+络绎不绝行色匆匆的路人、慷慨陈词笑里藏刀的罪犯、
+暂停查询的历史记录、写入到一半的用户文件、
+忘记名字的声音、褪去色彩的照片、
+回忆、倦意、微风、@@.awaya;粉红色@@，
+以及魔爪丰富的咖啡因，
+此刻全汇集在她的指尖。
+她的指尖颤抖。
+
+<<linkreplace "……" t8n>><p class="awaya">“——
+<span class="shake" style="font-size:150%">''喝啊！''</span>
+——”</p>\
+光芒、能量、积蓄的年岁，瞬间从几平方厘米的皮肤表面喷薄而出。
+锥形射线笼罩四野，亮度遮蔽天空以至于致盲。
+
+晕眩的轰鸣过后，GFW不复存在，
+在那里的只有因过载而气喘吁吁的阿瓦娅。
+
+<p class="awaya">“……啊，好累，虽然，好兴奋……”</p>\
+她说着擦去额头渗出的汗，
+<p class="awaya">“那……我先撤……啦。祝你好运~”</p>\
+
+现在你可以过去了。
+<<del_friend "阿瓦娅">><<mission "将识别码交给R">>\
+
+[[继续->第四题]]
+<</linkreplace>>
+
+
+:: GFW-dodo [nobr] {"position":"1075,675","size":"100,100"}
+说时迟那时快，dodo仿佛明白你的意思，话音未落便飞起，抓住你的衣领将你提到半空中。<br>
+虽然摇摇晃晃，但总不至于坠落。
+<p class="grey">“我自然是能飞的，”</p>
+他又说了一遍，领着你到几百米高空，轻轻越过了GFW，
+<p class="grey">“可惜这种高度还不太够过瘾。<br>
+若有朝一日我重回巅峰状态，可以带$player_name公去领略世界之外的风景。”</p>
+<<if visited() == 1>>
+  <br>
+  <<mission "将识别码交给R">>
+<</if>>
+<br>
+[[降落->第三题]]
+
+
+:: GFW-uno [nobr] {"position":"1075,550","size":"100,100"}
+<p class="light-green">（散步）（叹气）“哎……”</p>
+23 AUG ᴾᴹ 04:04<br>
+<p class="light-green">“嘿，GFW，你动不动就堵路的日子结束了。（叹气）把路让开！”</p>
+<p class="grey">“如果你想要，就自己来战。（晃动）这规矩你早就懂的。”</p>
+<p class="light-green">“我就知道你会这么说（掏出UNO）（意义不明的鼓点）”</p>
+<p class="grey">“我们之间打过多少局了？”</p>
+<p class="light-green">（意义不明的鼓点）（打开UNO盒子）<br>“说不好。童年回忆里，我们尽是在打UNO……”</p>
+<p class="grey">（邪魅一笑）</p>
+<p class="light-green">“该做个了结了，GFW！（意义不明的洗牌）一了百了！”</p>
+<p class="grey">（切牌）（发牌）</p>
+<br>
+一切就绪，游戏开始。<br>
+你耐住了来自GFW厚重又危险的气场，认真又不拖泥带水地思考着每一次出牌，竭尽所能追求优势局面。<br>
+GFW也不甘落于下风，墙壁震颤、砖瓦共鸣，几次你刚刚喊出UNO就被他塞回好几张牌。<br>
+焦灼的气氛笼罩着你们，乃至整个试卷。<br>
+最终，在洗牌两次，出牌几十个回合之后，双方都只剩一张，而刚好轮到你了。<br>
+<br>
+<<linkreplace "G8！" t8n>>
+  <p class="light-green">“G8！”</p>
+  你大喊出代表胜利的名字，用力扔出手中最后一张牌，一霎如有数不尽的烟花在耳边开放。<br>
+  GFW“喀喀”悲鸣，被前所未有的失败击垮，中心开了一个大洞。<br>
+
+  <br>
+  现在你可以过去了。<br>
+  <<mission "将识别码交给R">>
+
+  <br>
+  [[继续->第四题]]
+<</linkreplace>>
+
+
+:: GFW遗址 {"position":"1325,675","size":"100,100"}
+过去是GFW的遗址。
+如今已经被炸成一片废墟。
+
+[[返回->第四题]]
+
+
+:: ICB [nobr] {"position":"2850,1025","size":"100,100"}
+<<if !visited("icb-完成")>>
+  <p class="grey">“（阴暗爬行）”</p>
+  约莫高中生模样的仿生机器人毫无血色，失去动力趴在地上。<br>
+  她的关节处冒出火花，体内发出“滋滋”的电流声，瞳孔中高光若隐若现，<br>
+  敞开的[[后背内部->icb-内部]]，是机械做的人工心脏与纠缠不清的血管和导线。<br>
+<<else>>
+  <p class="grey">“（哈欠）”</p>
+  修好后的小机器人动作敏捷远超常人。<br>
+  她捉住半空中一只蚊子，捏在指尖，向你挥手致意。<br>
+<</if>>
+<br>
+<<if !visited("icb-名字")>>
+[[询问她的名字->icb-名字]]<br><</if>>
+[[询问关于GFW的事->icb-gfw]]<br>
+<br>
+[[返回->lounge]]
+
+
+:: ICB-完成2 [nobr] {"position":"3100,1025","size":"100,100"}
+<p class="grey">“好耶！！！”</p>
+小机器人高兴地转圈，<br>
+<p class="grey">“好久没这么充满能量了！你也渴了吧？这瓶算我请你的！”</p>
+<<if visited() == 1>>
+  <br>
+  <<add_item "魔爪">>
+  <<set_ach "起死回生">>
+<</if>>
+<br>
+[[返回->ICB]] 
+
+
+:: NE_1 {"position":"2125,1050","size":"100,100"}
+<div class="center">\
+<<nobr>>
+<h2 class="light-purple">NE 1</h2>
+<h3 class="lemon">
+  <span style="font-size: 50%">それでも ラウンジは廻っている</span><br>
+  即使如此，兰枝依然转动
+</h3>
+<</nobr>>
+又送走一位客人。
+兰枝一如既往，
+HC一如既往。
+再见到你，他们还是会说：
+“一切照旧。”
+
+[[菜单->主菜单]]
+</div>
+<<silent>>
+  <<set_ach "即使如此，兰枝依然转动">>
+<</silent>>
+
+
+:: NE_2 {"position":"2125,1175","size":"100,100"}
+<div class="center">\
+<<nobr>>
+<h2 class="light-purple">NE 2</h2>
+<h3 class="lemon">
+  <span style="font-size: 50%">Outside the Wall</span><br>
+  墙外世界
+</h3>
+<</nobr>>
+越过长城、走向世界，
+也许是短暂的胜利，
+也许，
+一切只是回到原点。
+
+[[菜单->主菜单]]
+</div>
+<<silent>>
+  <<set_ach "墙外世界">>
+<</silent>>
+
+
+:: NE_3 {"position":"2250,1050","size":"100,100"}
+<div class="center">\
+<<nobr>>
+<h2 class="light-purple">NE 3</h2>
+<h3 class="lemon">
+  <span style="font-size: 50%">Canadian Champion</span><br>
+  加拿大冠军
+</h3>
+<</nobr>>
+一种鸟类永远灭绝了、
+一朵鲜花永远枯萎了。
+不过，嘛，
+我们还有UNO可以玩。
+
+[[菜单->主菜单]]
+</div>
+<<silent>>
+  <<set_ach "加拿大冠军">>
+<</silent>>
+
+
+:: NE_4 {"position":"2250,1175","size":"100,100"}
+<div class="center">\
+<<nobr>>
+<h2 class="light-purple">NE 4</h2>
+<h3 class="lemon">
+  <span style="font-size: 50%">Shoujo With Monster Energy</span><br>
+  魔爪少女
+</h3>
+<</nobr>>
+魔爪能量是，
+怪物能量公司，
+于2002年推出的，
+高能量运动饮料。
+
+[[菜单->主菜单]]
+</div>
+<<silent>>
+  <<set_ach "魔爪少女">>
+<</silent>>
+
+
+:: NE_? {"position":"2000,1050","size":"100,100"}
+<div class="center">\
+<<nobr>>
+<h2 class="light-purple">NE ?</h2>
+<h3 class="lemon">
+  <span style="font-size: 50%">Speedrunner</span><br>
+  速通选手
+</h3>
+<</nobr>>
+感谢您参与本次测试，
+期待下次再见。
+
+[[菜单->主菜单]]
+</div>
+<<silent>>
+  <<set_ach "速通选手">>
+<</silent>>
+
+
+:: R [nobr] {"position":"675,550","size":"100,100"}
+R站在文字之外，面对一片荒原，带着一站之长不可一世的高傲与锐气。<br>
+<p class="grey">“有什么事吗，//$player_name//？”</p>
+<br>
+你在想他为什么会中文。<br>
+<br>
+[[“你是在说中文吗？”->r-中文]]<br>
+[[“我们现在是在哪？”->r-在哪]]<br>
+[[“我需要你跟我去一个地方。”->r-谈判]]<br>
+<br>
+[[返回->第一题]]
+
+
+:: R-before [nobr] {"position":"550,550","size":"100,100"}
+<<if !visited()>>
+  R站在那里<br>
+  <br>
+  [[R]]
+<<else>>
+  <<goto "R">>
+<</if>>
+
+
+:: R-desc [non-text nobr] {"position":"100,1000","size":"100,100"}
+眼神智慧的外邦人，也许会在特殊时刻派上用场。<br>
+<<if def $bomb_at && $bomb_at == "R">>
+  你记得你曾偷偷在他衣服里藏了一个炸弹。<br>
+<</if>>
+<br>
+
+<<set_bomb "R">>
+
+[[返回->队伍]]
+
+
+:: RRRrrr-desc [non-text] {"position":"0,400","size":"100,100"}
+轻盈的木牌，上面刻着传说中R的识别码，似乎在闪闪发光。
+<<nobr>>
+  <<if $bag["炸弹-隐藏"]>>
+    已经和炸弹融合过了，火药流淌在它之中。<br>
+  <</if>>
+<</nobr>>\
+
+[[返回->背包]]
+
+
+:: SE_1 {"position":"1700,1525","size":"100,100"}
+<div class="center">\
+<<nobr>>
+<h2 class="light-blue shake">SE 1</h2>
+<h3 class="lemon">
+  <span style="font-size: 50%">The Last Commonplace Brid on Earth</span><br>
+  地球上最后一只渡渡鸟
+</h3>
+<</nobr>>
+它仰望天空。
+它梦想天空。
+它飞向天空。
+它成为天空。
+
+[[菜单->主菜单][$last_p = ""]]
+</div>
+<<silent>>
+  <<set_ach "地球上最后一只渡渡鸟">>
+<</silent>>
+
+
+:: SE_2 {"position":"1825,1525","size":"100,100"}
+<div class="center">\
+<<nobr>>
+<h2 class="light-blue shake">SE 2</h2>
+<h3 class="lemon">
+  <span style="font-size: 50%">Crownslayer</span><br>
+  弑君者
+</h3>
+<</nobr>>
+永恒孤独，
+死亡缠绕；
+诅咒解除，
+回光返照。
+
+[[菜单->主菜单][$last_p = ""]]
+</div>
+<<silent>>
+  <<set_ach "弑君者">>
+<</silent>>
+
+
+:: StoryCaption [nobr] {"position":"0,100","size":"100,100"}
+<<if $mission>>
+  目标：$mission<br>
+<</if>>
+
+
+:: StoryDisplayTitle {"position":"0,0","size":"100,100"}
+Quiz 2 ... ?
+
+
+:: StoryInit {"position":"100,100","size":"100,100"}
+<<set 
+  $last_p = "";
+  $correct = 0;
+  $stage = 0;
+  $mission = "";
+
+  $bag = {};
+  $friends = new Set();
+
+  $talked = {};
+  $name_count = 0;
+  
+  $ach_mode = 0; /* 0显示全部，1只显示拥有*/
+  $bag_flag = false; /* 细节优化，避免 获得物品->打开背包->返回->再次获得物品（一般情况下判断visited() == 1就行，但需要重复访问的片段就要用这个flag了） */
+>>
+
+
+:: StoryMenu [nobr] {"position":"200,0","size":"100,100"}
+<<if setup.get_bag().length>>
+  <<c_link "背包" "背包">><br>
+<</if>>
+<<if $friends.size>>
+  <<c_link "队伍" "队伍">><br>
+<</if>>
+<<c_link "主菜单" "主菜单">>
+
+
+:: StorySubtitle {"position":"100,0","size":"100,100"}
+v1.1
+
+
+:: UNO [nobr] {"position":"2300,700","size":"100,100"}
+<<set _cy = visited("cy-名字") ? "canyu" : "沉思者">>
+<<if !visited("dd-紫阳花")>>
+  出牌堆顶上的牌是B8。<br>
+<<elseif visited("cy-dodo卒")>>
+  UNO现在是你的了。<br>
+<<else>>
+  <p class="grey">“又输给他了啊……”</p>
+  _cy苦恼地歪着脑袋，
+  <p class="grey">“你知道吗，他可是加拿大冠军。UNO的。<br>
+  唉，如果没有他，我大概早就金盆洗手，不用再玩UNO了吧。”</p>
+<</if>>
+
+<<if $bag["一片羽毛"]>>
+  <br>[[给他dodo的羽毛->cy-dodo卒]]<br>
+<</if>>
+
+<br>
+[[返回->lo-用户]] 
+
+
+:: YC [nobr] {"position":"1200,400","size":"100,100"}
+your-channel，在HC落成一段日子后，也曾是熙熙攘攘的用户聚集地，<br>
+然而曾几何时，老住户们或消失或离去，基础设施尽数撤走。<br>
+<br>
+如今空地[[杂草->yc-杂草]]丛生，只有灰尘和过路的飞鸟在[[废弃的空楼->yc-废墟]]中逗留。<br>
+<br>
+就某种意义而言，现在这里真的成为“你的频道”了。<br>
+
+<<if visited("dd-魔爪")>>
+  <br>
+  [[让dodo带你起飞->dd-起飞]]<br>
+<</if>>
+
+<br>
+[[返回->第五题]]
+
+
+:: al-gfw [nobr] {"position":"2550,1150","size":"100,100"}
+<<if !visited("sr-gfw")>>
+  <p class="grey">“GFW……呃……不，没有办法的。”</p>
+<<else>>
+  <p class="grey">“你已经听sora说过了？好吧……但我仍然坚持最好不要打扰她，无论是ICB、还是sora。”</p>
+<</if>>
+
+<br>
+[[返回->aleph]] 
+
+
+:: al-icb [nobr] {"position":"2675,1275","size":"100,100"}
+<p class="grey">“嗯，我因为怕忘记，专门写了张纸条记录启动指令来着。
+这下可好了，连它也能弄丢。”</p>
+
+<<if $bag["启动指令"]>>
+<br>
+  <<linkreplace “你说的启动指令，就是这个？” t8n>>
+  <p class="grey">“啊对，你竟然找到它了。<br>
+  这就是我们存储秘密消息的风格，想挑战挑战吗？”</p>
+  <</linkreplace>><br>
+<</if>>
+
+<br>
+[[返回->aleph]] 
+
+
+:: al-名字 [nobr] {"position":"2675,1150","size":"100,100"}
+<<if visited() == 1>><<set $name_count++>><</if>>
+<p class="grey">“写作ℵα、读作alepha，中文名字是残扇安。”</p>
+<<dpg "alepha" "残扇安">>
+  <p class="grey">“嗯？和我一样的名字，冒充？还是说……”</p>
+<</dpg>>
+
+<br>
+[[返回->aleph]] 
+
+
+:: aleph [nobr] {"position":"2675,1025","size":"100,100"}
+<<if !visited("icb-完成")>>
+  <p class="grey">“嗨，你知道吸血鬼为什么不吃辣吗？<br>
+  因为他们喜欢blood。”</p>
+  他面无表情地讲完这个冷笑话，同时接上了机器人背后的一对线。<br>
+<<else>>
+  <p class="grey">“一根香蕉因为天气太热把衣服脱了。<br>
+于是，另一根香蕉摔倒了。
+——干得不错，没想到你解谜还有两手的。”</p>
+<</if>>
+
+<br>
+<<if !visited("al-名字")>>[[询问他的名字->al-名字]]<br><</if>>
+<<if !visited("icb-内部")>>[[询问关于ICB的事->al-icb]]<br><</if>>
+[[询问关于GFW的事->al-gfw]]<br>
+<br>
+[[返回->lounge]]
+
+
+:: awy-gfw [nobr] {"position":"1750,500","size":"100,100"}
+<<if ndef $gfw_bomb>>
+  <p class="awaya">“嗯，那个啊……确实是个硬茬。<br>
+  毕竟不是人人都能翻过来，拜它所赐这儿也比以往冷清好多……”</p>
+  若有所思地点头，轻度陷入回忆，<br>
+  <p class="awaya">“我作为员工能做的是在有限，或许你可以问问其他客人？各位都是能人异士，呵呵~”</p>
+<<else>>
+  <p class="awaya">“好壮观的爆炸哇~我在这里都看得一清二楚。<br>
+  谢谢你啦，$player_name，这样一来我们的顾客也会变多吧，^w^”</p>
+<</if>>
+
+<br>
+[[返回->服务员]]
+
+
+:: awy-名字 {"position":"1875,500","size":"100,100"}
+<<if visited() == 1>><<set $name_count++>><</if>>\
+<p class="awaya">“刚不是说过了吗，我就是阿瓦娅啊，客人~”</p>\
+
+[[返回->服务员]] 
+
+
+:: awy-疑问 {"position":"1875,625","size":"100,100"}
+<p class="awaya">“哼哼，这你就不懂啦，”</p>\
+阿瓦娅玻璃珠似的眼睛荡漾着笑意，
+<p class="awaya">“机器人这种东西，当然是要多少有多少，想粘贴到哪粘贴到哪了。”</p>\
+
+[[返回->服务员]]
+
+
+:: awy1-gfw [nobr] {"position":"1325,125","size":"100,100"}
+<<if def $gfw_bomb>>
+  <p class="awaya">“你一个人就把它炸掉了？佩服啊~”<br>
+<<elseif visited("GFW-awy")>>
+  <p class="awaya">“怎么样，刚才我的样子很帅吧？”<br>
+<<else>>
+  <p class="awaya">“那个，很久以前嘛，大概有过一次，打碎过它的说。<br>
+  现在的体力赶不上年轻的时候啦……<br>
+  如果有什么东西能让我重新有力量的话，说不定还能再试试。”</p>
+
+  <<if $bag["魔爪"]>>
+    <br>
+    [[给她魔爪->awy1-魔爪]]<br>
+  <</if>>
+<</if>>
+
+<br>
+[[返回->阿瓦娅]]
+
+
+:: awy1-主人 {"position":"1450,250","size":"100,100"}
+<p class="awaya">“嗯……感觉已经好久没见他了诶……
+好像说是要出差给我买吃的、谁知道呢。”</p>\
+她故作轻松地笑着，满不在乎的眼底藏着一汪落寞。
+
+[[返回->阿瓦娅]]
+
+
+:: awy1-做什么 {"position":"1575,250","size":"100,100"}
+<p class="awaya">“当然是揽客啦，作为一个机器人该做的~
+不过已经23年了吗……时间过得真是快。”</p>\
+
+[[返回->阿瓦娅]]
+
+
+:: awy1-摸头 {"position":"1325,250","size":"100,100"}
+<p class="awaya">“呒呣呣<nowiki> >w< ~~</nowiki>”</p>\
+阿瓦娅顺从地低下头，转着脑袋在你手掌上蹭蹭。
+她的头发有着远超于人类的顺滑感。
+
+[[返回->阿瓦娅]]
+
+
+:: awy1-魔爪 [nobr] {"position":"1450,125","size":"100,100"}
+<p class="awaya">“这个……是魔爪！”</p>
+阿瓦娅接过饮料罐，打开一饮而尽，<br>
+<p class="awaya">“哇啊……好爽，这次是真的充满了能量。<br>
+好，走，我们去教训教训GFW吧！”</p>
+  <<if visited() == 1>>
+  <br>
+  <<del_item "魔爪">>
+  <<add_friend "阿瓦娅">>
+<</if>>
+<br>
+[[返回->第五题]]
+
+
+:: br {"position":"2000,400","size":"100,100"}
+这人看起来像要烧着了，他亮黄色炽热的皮肤，周身环绕着源源不断冒出的火焰！
+然而旁边的桌椅并没有被点燃。
+<<nobr>>
+<<if !$talked.br>>
+  趴在桌子上，他周围被一圈高温笼罩，你不确定要不要打扰他。
+<<else>>
+  他的热烈让他没法再度入睡了，他以烈焰之视线注视着你。
+<</if>>
+<</nobr>>\
+
+<<if !visited("br-名字")>>
+[[询问他的名字->br-名字]]<</if>>
+[[“哇哦，为什么你这么火！”->br-火]]
+[[“嘿，能帮我烧掉GFW吗？”->br-gfw]]
+
+[[返回->lo-用户]] 
+
+
+:: br-gfw [nobr] {"position":"2000,250","size":"100,100"}
+<<if ndef $gfw_bomb>>
+  <<icebreak "br">>
+  <p class="grey">“这就难办了，GFW可不是几把火就能轻易烧掉那么脆弱啊……<br>
+  我？我倒是成为火，顺着空气就从缝隙间钻进来了。<br>
+  没有密不透风的墙……字面上的意思。”</p>
+<<else>>
+  <p class="grey">“我听到了，GFW被炸毁了是吗？我的火焰也派上用场了对吗？<br>
+  嗯，这才对，或许可以考虑你做我的下一代传人了……”</p>
+<</if>>
+
+<br>
+[[返回->br]] 
+
+
+:: br-借火 [nobr] {"position":"1750,250","size":"100,100"}
+<p class="grey">“喏，拿去。火永远与你同在。”</p>
+他扔来一个方形物品。<br>
+<<if visited() == 1>>
+  <br>
+  <<add_item "打火机">>
+<</if>>
+<br>
+[[返回->br]] 
+
+
+:: br-初次 [nobr] {"position":"1875,125","size":"100,100"}
+<p class="grey">“……”</p>
+你轻轻拍了拍，他便很快坐直身子，不解地揉着眼睛，一会儿才消化你说的话，
+
+
+:: br-名字 [nobr] {"position":"2000,125","size":"100,100"}
+<<icebreak "br">>
+<<if visited() == 1>><<set $name_count++>><</if>>
+<p class="grey">“以前他们叫我O5_6，因为那是代号；或者Blaze，因为那是特征。<br>
+而现在，两者我都不需要了，所以直接叫我Br_O_Ken，或者Br_O就好。”</p>
+<<dpg "Blaze" "Br_O_Ken" "Br_O">>
+  <p class="grey">“喔，和我名字一样吗，那可真不错，就看你小子有眼缘。”</p>
+<</dpg>>
+
+<br>
+[[返回->br]] 
+
+
+:: br-火 {"position":"1875,250","size":"100,100"}
+<<icebreak "br">>\
+<p class="grey">“这就是我生下来的样子，狂热、躁动、还有不羁！
+如果你需要@@.blue;火@@的话，我不介意借你一点儿。”</p>\
+<<if !visited("br-借火")>>
+[[借火->br-借火]]
+<</if>>
+[[返回->br]] 
+
+
+:: canyu [nobr] {"position":"2300,550","size":"100,100"}
+<<if !visited("dd-紫阳花")>>
+  眉头紧锁的男子，手牌颜色各异，情况不容乐观。<br>
+  桌上茶杯边是一本密码学书籍，下面压着张写了些什么的<<noobr>>
+  <<if def $cy_solved>>
+    纸片
+  <<else>>
+    [[纸片->cy-谜题]]
+  <</if>><</noobr>>。<br>
+<<else>>
+  不再有人打UNO，他百无聊赖地一会儿翻翻书，一会儿看看UNO。<br>
+<</if>>
+
+<br>
+<<if !visited("cy-名字")>>
+  [[询问他的名字->cy-名字]]<br>
+<</if>>
+<<if visited("cy-谜题") && ndef $cy_solved>>
+  [[询问关于谜题的事->cy-提示]]<br>
+<</if>>
+<<if $bag["启动指令"]>>
+  [[询问关于启动指令的谜题->cy-启动指令]]<br>
+<</if>>
+[[询问关于GFW的事->cy-gfw]]<br>
+<br>
+[[返回->lo-用户]] 
+
+
+:: code-widget [widget nobr non-text] {"position":"1200,0","size":"100,100"}
+/* 一些更侧重逻辑的widget */
+
+<<widget "add_item">>
+  <<set _count = _args[1] || 1>>
+  <<if $bag[_args[0]]>>
+    <<set $bag[_args[0]] += _count>>
+  <<else>>
+    <<set $bag[_args[0]] = _count>>
+  <</if>>
+  <<if _count == 1>>
+    <p class="dark-green">获得了//_args[0]//</p>
+  <<else>>
+    <p class="dark-green">获得了//_args[0]// * _count</p>
+  <</if>>
+<</widget>>
+
+<<widget "del_item">>
+  <<set _count = _args[1] || 1;
+    $bag[_args[0]] -= _count;
+  >>
+  <<if !$bag[_args[0]]>>
+    <<run delete $bag[_args[0]]>>
+  <</if>>
+  <<if _count == 1>>
+    <p class="dark-green">失去了//_args[0]//</p>
+  <<else>>
+    <p class="dark-green">失去了//_args[0]// * _count</p>
+  <</if>>
+<</widget>>
+
+<<widget "add_friend">>
+  <<run $friends.add(_args[0])>>
+  <p class="lemon">_args[0]加入了队伍！</p>
+<</widget>>
+
+<<widget "del_friend">>
+  <<run $friends.delete(_args[0])>>
+  <p class="lemon">_args[0]离开了队伍！</p>
+<</widget>>
+
+<<widget "set_ach">>
+  <<set _achs = State.metadata.get("achs") || [];>>
+  <<for _ach range _args>>
+    <<if _achs.indexOf(_ach) == -1>>
+      <<run _achs.push(_ach);>>
+    <</if>>
+  <</for>>
+  <<run State.metadata.set("achs", _achs)>>
+  <<script>>
+    let achs = [];
+    for (let ach of State.getVar("_args")){
+      achs.push(`【${ach}】`);
+    }
+    State.setVar("_result", achs.join(""));
+  <</script>>
+  <p class="lemon">获得成就_result</p>
+<</widget>>
+
+<<widget "set_bomb">>
+  <<set _psg = passage()>>
+  <<if $bag["炸弹"]>>
+    <<link "安放炸弹" _psg>>
+      <<set $bomb_at = _args[0]>>
+      <<del_item "炸弹">>
+    <</link>><br><br>
+  <<elseif $bomb_at == _args[0]>>
+    <<link "回收炸弹" _psg>>
+      <<unset $bomb_at>>
+      <<add_item "炸弹">>
+    <</link>><br><br>
+  <</if>>
+<</widget>>
+
+<<widget "autoload">>
+<<link "继续填写">>
+<<script>>
+if (Save.browser.size > 0) {
+	Save.browser.continue()
+        .then(() => {
+            Engine.show();
+        })
+		.catch(error => {
+			UI.alert(error);
+		});
+}
+else {
+	UI.alert("当前没有存档可加载");
+}
+<</script>>
+<</link>>
+<</widget>>
+
+
+:: credits [non-text] {"position":"400,100","size":"100,100"}
+引擎：<a target="_blank" href="https://twinery.org/">Twine</a> (SugarCube)
+
+故事：DarkT
+
+程序：DarkT
+
+出演：部分HC用户（OOC致歉）
+
+灵感：<a target="_blank" href="https://hcquiz.pages.dev/">Quiz 1.0</a> By Blaze & DarkT
+
+代码在<a target="_blank" href="https://github.com/Kroos372/kroos372.github.io">Github上开源</a>
+
+欢迎反馈
+
+[[返回->主菜单]]
+
+
+:: cy-dodo卒 [nobr] {"position":"2500,700","size":"100,100"}
+<<set _cy = visited("cy-名字") ? "canyu" : "沉思者">>
+<p class="grey">“………………<br>
+……等、等等？这是……dodo的羽毛？！<br>
+还带着血就表示……你打败他了？！？！”</p>
+终于理解了状况后，_cy惊讶得合不拢嘴，
+<p class="grey">“噢天哪，谢谢你，我终于能从UNO中解放了。<br>
+作为谢礼，请收下这盒UNO，向着加拿大冠军努力吧！”</p>
+<<if visited() == 1>>
+  <br>
+  <<del_item "一片羽毛">>
+  <<add_item "一盒UNO">>
+<</if>>
+<br>
+[[返回->lo-用户]]
+
+
+:: cy-gfw [nobr] {"position":"2500,550","size":"100,100"}
+<<if def $gfw_bomb>>
+  <p class="grey">“啊啊，我听到了。GFW倒塌的声音，那是自由的声音呐。”</p>
+<<elseif !visited("dd-紫阳花")>>
+  <p class="grey">“GFW？嗯，当然有办法的，只要——”</p>
+  “canyu公，请快些出牌。”<br>
+  <p class="grey">“知道了知道了。——稍等，我打完这局再告诉你吧。”</p>
+  对手的催促声让他不得不重新专注于UNO中了。<br>
+<<elseif $friends.has("dodo")>>
+  <p class="grey">“怎么说……看上去你已经找到过去的方法了啊。”</p>
+  他看向跟在你身旁的dodo，带着一丝无奈。<br>
+<<elseif visited("cy-dodo卒")>>
+  <p class="grey">“哈啰，”</p>
+  他从书中抬起头，
+  <p class="grey">“UNO练习得还顺利吗？加油。<br>
+  相信有一天你能靠它打败GFW的。”</p>
+<<else>>
+  <p class="grey">“再等等。我必须将[[UNO]]练到登峰造极，否则下次是打败不了dodo的。”</p>
+<</if>>
+<br>
+[[返回->canyu]] 
+
+
+:: cy-名字 [nobr] {"position":"2500,400","size":"100,100"}
+<<if visited() == 1>><<set $name_count++>><</if>>
+<p class="grey">“canyu。”</p>
+他简短地回答道。<br>
+<<dpg "canyu">>
+  <p class="grey">“你也是？嗯……挺好。”</p>
+<</dpg>>
+<br>
+[[返回->canyu]] 
+
+
+:: cy-启动指令 {"position":"2875,400","size":"100,100"}
+他接过皱巴巴的纸片，研究不一会儿便有了眉目。
+<p class="grey">“看上去它们每一句都多少和方向有关。
+要么就是上下左右，你觉得呢？”</p>\
+
+[[返回->canyu]] 
+
+
+:: cy-提示 {"position":"2625,550","size":"100,100"}
+<p class="grey">“据说这个谜题是@@.blue;DPG@@在和@@.blue;阿瓦娅@@玩@@.blue;UNO@@时即兴想出来的，也许从他们那儿能获得些线索？”</p>\
+
+[[返回->canyu]]
+
+
+:: cy-知道答案 {"position":"2750,550","size":"100,100"}
+<p class="grey">“该怎么解释呢……
+我有一种近乎超能力的直觉。虽然没法直接解出题目，但看到答案就能感觉出来它是对是错。
+这个答案给我一种苦涩的味道，所以应该是不对的。”</p>\
+他认真地回答道。
+
+[[返回->cy-谜题]] 
+
+
+:: cy-答题 [nobr items] {"position":"2750,400","size":"100,100"}
+<<if $cy_puzzle == 6423>>
+  <p class="grey">“哈……？这个香甜的味道……你竟然答对了！<br>
+  不错，我手边正好有支紫阳花，就当做奖品送你吧。”</p>
+  <<if !$bag_flag>>
+    <br>
+    <<add_item "紫阳花">>
+    <<set_ach "小菜一碟">>
+  <<else>>
+    <<set $bag_flag = false>>
+  <</if>>
+  <<set $cy_solved = true>>
+  <br>
+  [[返回->canyu]]
+<<else>>
+  <p class="grey">“不，不是这个……”</p>
+  他摇了摇头。
+  <<if $cy_puzzle == 721>>
+    <p class="grey">“不过这个答案啊……”</p>
+    他意味深长地看着你，然后，
+    <p class="grey">“Ciallo～(∠・ω< )⌒★”</p>
+    <br>
+    <<set_ach "柚子厨蒸鹅心">>
+  <<else>>
+    <p class="grey">“再去想想吧。”</p>
+  <</if>>
+  
+  <br>
+  [[“等等，所以说你知道答案？”->cy-知道答案]]<br>
+  <br>
+  [[返回->cy-谜题]]
+<</if>>
+
+
+:: cy-谜题 {"position":"2625,400","size":"100,100"}
+<<set _default = def $cy_puzzle ? $cy_puzzle : 1234>>\
+注意到你的视线，他抽出纸片递给你，解释起来：
+<p class="grey">“是道谜题，我一直在玩UNO忘记做了。
+你可以试一试，答对的话也许有奖励。”</p>\
+
+纸片顶端写着谜面：
+U * D / A + A /* 184 * 800 / 23 + 23 == 6423 */
+
+中间是他做的草稿，被涂抹得乱七八糟。
+最下面画的填写答案的四个方框。
+<<numberbox "$cy_puzzle"  _default "cy-答题" autofocus>>
+
+[[确认->cy-答题]]
+
+[[返回->canyu]] 
+
+
+:: dd-gfw [nobr] {"position":"2500,250","size":"100,100"}
+<<if ndef $gfw_bomb>>
+  <<icebreak "dd">>
+  <p class="grey">“伟大防火墙，的确难以击破。<br>
+  但话又说回来，如果你能给我一些<span class="blue">植物</span>作为研究材料的话，可以考虑载你飞过那道墙。”</p>
+  <br>
+  [[“我以为凭你的翅膀是飞不了的？”->dd-能飞]]<br>
+  <<if $bag["紫阳花"]>>
+    [[给他紫阳花->dd-紫阳花]]<br>
+  <</if>>
+<<else>>
+  <p class="grey">“伟大防火墙固然恐怖，但要我说，$player_name公，将它亲手毁掉的你更伟大。”</p>
+  他赞许地扇着翅膀。<br>
+<</if>>
+
+<br>
+[[返回->dodo]] 
+
+
+:: dd-初次 [nobr] {"position":"2375,125","size":"100,100"}
+<p class="grey">“$player_name公好。”</p>
+仍旧注视着自己的手牌，他开口打招呼道。<br>
+你不明白他怎么会知道你的名字，正如不明白他怎么会长翅膀，<br>
+不过意外又自然而然地，在这种地方，你也接受了。
+
+
+:: dd-名字 [nobr] {"position":"2375,250","size":"100,100"}
+<<if visited() == 1>><<set $name_count++>><</if>>
+<<icebreak "dd">>
+<p class="grey">“$player_name公忘了吗。我只是一只普通的鸟，可以叫dodo。”</p>
+你想起来了，没错，正是渡渡鸟。<br>
+<<dpg "dodo" "commonplace_brid">>
+  <p class="grey">“你……难道地球上还有很多和我一样的鸟吗。有些受到冲击了。”</p>
+<</dpg>>
+<br>
+[[返回->dodo]] 
+
+
+:: dd-紫阳花 [nobr] {"position":"2625,250","size":"100,100"}
+<p class="grey">“啊哈，不错的品相，是才摘来的吗？<br>
+——没关系，不用回答。<br>
+看来我也要履行诺言了。”</p>
+他优雅地打出手中最后一张牌，宣告胜利的同时起身，跟在你身后。<br>
+
+<<if visited() == 1>>
+  <br>
+  <<del_item "紫阳花">>
+  <<add_friend "dodo">>
+  <<mission "将识别码交给R">>
+<</if>>
+<br>
+[[返回->dodo]] 
+
+
+:: dd-翅膀 {"position":"2500,125","size":"100,100"}
+<<icebreak "dd">>\
+<p class="grey">“翅膀自然是从身上长出的，$player_name公冰雪聪明，怎会不明白这个道理。”</p>\
+
+[[返回->dodo]] 
+
+
+:: dd-能飞 {"position":"2625,125","size":"100,100"}
+<p class="grey">“这就是偏见了。
+鸟类都是属于天空的，正如植物都是属于大地的。
+飞翔是件唯心的事情，只要足够坚信自然能够做到。”</p>\
+
+[[返回->dodo]] 
+
+
+:: dd-起飞 {"position":"1200,250","size":"100,100"}
+“呼——”
+dodo轻轻扑扇两下翅膀，悬停在空中，衣角随风飞舞。
+<p class="grey">“仅仅是离开地面，空气都好像更加清新。”</p>\
+他翱翔，在你头顶上空打着旋儿；下降，你的衣领被猛地抓住，
+<p class="grey">“该你了，$player_name公。
+不用害怕，不要乱动，没有危险，
+现在的我飞出大气，坠入太阳都不成问题。
+
+快来，$player_name公。
+轻轻跳起来，离开地面，
+给我一些力量，剩下什么都不需要操心了。”</p>\
+
+<<linkreplace "踮起脚尖" t8n>>\
+  你踮起脚尖，只是踮起脚尖，一股不可抗拒的力量将你托升至半空。
+  
+  失重、气流、还有dodo的口哨声，你们以烟花升空的速度远离地面。
+  时间无序地淌过气团淌过锋面，楼房、风筝、飞鸟、掠过你的视界。
+  你们已经置身纯粹的蓝天，你们已经位于地图定位不到的点。
+  
+  <p class="grey">“不错吧，$player_name公。
+  我们已经在云层之上，航线之外了。
+  闭上眼睛，这里的空气真的很好。”</p>\
+  
+  [[闭上眼睛->SE_1]] 
+<</linkreplace>>
+
+
+:: dd-魔爪 [non-text nobr] {"position":"0,1125","size":"100,100"}
+<p class="grey">“这是……饮料？”</p>
+他怀疑地从你手中接过魔爪，拉开罐子凑近闻了闻，<br>
+<p class="grey">“不错的味道，既然如此，我恭敬不如从命了。”</p>
+<br>
+他并没有直接用嘴喝，而是拿着罐子，将冒着气泡的橙色液体均匀地淋在了两边翅膀上。<br>
+你看到液体还没来得及滴落地面，就已被层层叠叠的羽毛吸收，<br>
+一直羸弱不堪耷拉下去的翅膀，经过这番洗礼后，奇迹般地越变越厚、越变越大，最终比他的胳膊还要长。<br>
+<br>
+<p class="grey">“这样一来我算真的变成鸟了。<br>
+谢谢你的饮料，$player_name公。<br>
+找个空旷的地方，让我带你飞出这里吧。”</p>
+
+<<if visited() == 1>>
+  <br>
+  <<del_item "魔爪">>
+<</if>>
+
+<br>
+<<home>>
+
+
+:: dodo {"position":"2300,400","size":"100,100"}
+他身后是一对很小的翅膀，你依稀记得这部分在百科全书上见过，可是一时间叫不上名字。
+站在侧面，你能隐隐看到他手中的牌，仅剩五张中有两张都是+4。\
+
+<<if !visited("dd-名字")>>
+[[询问他的名字->dd-名字]]<</if>>
+[[“你的翅膀是从哪来的？”->dd-翅膀]]
+[[询问关于GFW的事->dd-gfw]]
+
+[[返回->lo-用户]] 
+
+
+:: dodo-desc [non-text nobr] {"position":"0,1000","size":"100,100"}
+长着柔弱翅膀的怪人，摆弄着手中的紫阳花，自称能带你飞过各种各样的障碍。<br>
+<<if visited("dd-魔爪")>>
+  魔爪使他精神百倍，现在他急需一片能够起飞的空地。<br>
+<</if>>
+<<if def $bomb_at && $bomb_at == "dodo">>
+  你记得你曾偷偷在他的翅膀底下藏了一个炸弹。<br>
+<</if>>
+<br>
+
+<<if  $bag["魔爪"]>>
+  [[给他魔爪->dd-魔爪]]<br>
+<</if>>
+
+<<set_bomb "dodo">>
+
+[[返回->队伍]]
+
+
+:: dpg-withr [nobr] {"position":"1475,1100","size":"100,100"}
+<p class="grey">“800.”</p>
+从他这里真的能得到有效信息吗？<br>
+
+<br>
+[[返回->DPG]]
+
+
+:: dpg-打火机 [nobr] {"position":"1600,1100","size":"100,100"}
+<p class="grey">“……”</p>
+无脸人接过你拿出的打火机，将盖子打开又关上、打开又关上……<br>
+重复几次后，他“咕嘟”一下吃掉了打火机，几秒种后，手伸进漆黑的外衣内部，还给你一颗炸弹。
+<p class="grey">“lol”</p>
+<<if visited() == 1>>
+  <br>
+  <<del_item "打火机">>
+  <<add_item "炸弹">>
+  <<add_item "引爆器">>
+<</if>>
+<br>
+[[返回->DPG]] 
+
+
+:: dpg-招呼 [nobr] {"position":"1350,1100","size":"100,100"}
+<p class="grey">“呼呼呼！”</p>
+兜帽下传出难以理解的响动。<br>
+<br>
+[[返回->DPG]] 
+
+
+:: dpg-索要 [nobr autosave] {"position":"1350,975","size":"100,100"}
+<p class="grey">“Baba.”</p>
+奇怪的生物低语，向你扔出一个刻着字符的牌子。<br>
+<<if visited() == 1>>
+  <br>
+  <<add_item "RRRrrr">>
+  <<mission "将识别码交给R">>
+  <<set $stage = 2>>
+<</if>>
+<br>
+[[返回->DPG]]
+
+
+:: dpg-魔爪 [nobr] {"position":"1600,975","size":"100,100"}
+<p class="grey">“😋👍”</p>
+<<if visited() == 1>>
+  <br>
+  <<del_item "魔爪">>
+<</if>>
+<br>
+[[返回->DPG]] 
+
+
+:: icb-gfw [nobr] {"position":"2975,1025","size":"100,100"}
+<<icebreak "icb">>
+<<if !visited("icb-完成")>>
+  <p class="grey">“G……f……唔。。。”</p>
+  现在似乎还和她不好对话。<br>
+<<else>>
+  <p class="grey">“GFW？用我给你的那个，就算是阿瓦娅也能轻易砸开！”</p>
+<</if>>
+
+<br>
+[[返回->ICB]] 
+
+
+:: icb-内部 [nobr] {"position":"2975,1150","size":"100,100"}
+<<set _aph = visited("al-名字") ? "alepha" : "长相可爱的男生">>
+<p class="grey">“滋…………”</p>
+你看到机器人深处，大部分导线都已经接上，井井有条地排列在皮肤内侧。<br>
+然而心脏还是一动不动，指示灯闪烁着不祥的红色，四个按钮在它周围。<br>
+<<if !$bag["启动指令"]>>
+  <p class="light-green">“这可是我辛辛苦苦才快要弄好的。在轻举妄动前，劝你最好小心点。”</p>
+  你一靠近，_aph就担忧地警告道，<br>
+  <br>
+  <p class="light-green">“启动指令、启动指令……我把它写在一张纸上，可是放到哪去了呢？”</p>
+<<else>>
+  <p class="light-green">“怎么样？我觉得我写得已经很明显了。”</p>
+  虽然找到了所谓的“启动指令”，但你仍然不确定该怎么按才对。<br>
+<</if>>
+
+<br>
+输入：<input id="input"> <br>
+<br>
+<<set _answer = "CCBAADBDCA">>
+<<space 2>><a class="key" id="B">B</a><br>
+<a class="key" id="A">A</a><<space 3>><a class="key" id="C">C</a><br>
+<<space 2>><a class="key" id="D">D</a><br>
+<<done>>
+  <<silent>>[[icb-完成]] [[icb-错误]] <</silent>>
+  <<script>>
+    const answer = State.getVar("_answer");
+    $(".key").click(function(e) {
+      let inputs = $("#input").val();
+      inputs += e.target.getAttribute("id");
+      if (inputs.length > answer.length) {
+        inputs = inputs.slice(1);
+      }
+      $("#input").val(inputs);
+    });
+    $("#input").on("input", (e) => {
+      const ipt = e.target;
+      const start = ipt.selectionStart;
+      const end = ipt.selectionEnd;
+      ipt.value = ipt.value.toUpperCase();
+      ipt.setSelectionRange(start, end);
+      if (ipt.value.length > answer.length) {
+        ipt.value = ipt.value.slice(1);
+      }
+    });
+  <</script>>
+<</done>>
+
+<br>
+<<link "确认">>
+  <<if $("#input").val() == _answer>>
+    <<goto "icb-完成">>
+  <<else>>
+    <<goto "icb-错误">>
+  <</if>>
+<</link>><br>
+<br>
+[[返回->ICB]] 
+
+
+:: icb-初次 {"position":"2975,1275","size":"100,100"}
+<p class="grey">“aGVscG1l..䆬ƀ梒䃪屠......朰ᜡ婄ፃ⡔⛀ഩϠ甡漦#䨯䤑N䁿ဠ、你、你好、、”</p>\
+机器人尝试开口。一段嘈杂的噪声过后，你终于勉强能听懂她在说的话了。
+
+
+:: icb-名字 [nobr] {"position":"2850,1150","size":"100,100"}
+<<if visited() == 1>><<set $name_count++>><</if>>
+<<icebreak "icb">>
+<<if !visited("icb-完成")>>
+  <p class="grey">“I……ICB...9、9型、机器人，陷入机械故障中……”</p>
+<<else>>
+  <p class="grey">“ICB_9型机器人，一切正常！”</p>
+<</if>>
+<<dpg "ICB" "ICB_9">>
+  <p class="grey">“是同类型、的，伙伴？好久不见、耶……”</p>
+<</dpg>>
+
+<br>
+[[返回->ICB]] 
+
+
+:: icb-完成 {"position":"3100,1150","size":"100,100"}
+<<set _aph = visited("al-名字") ? "alepha" : "长相可爱的男生";
+  _sora = visited("sr-名字") ? "sora" : "双马尾萝莉";
+>>\
+胸有成竹地依次按下按钮，你确信这次不会错了。
+
+伴随着一阵悦耳的提示小曲响起，指示灯由红转绿。
+机器人面色重新变得红润。在_aph和_sora惊异的目光中站了起来，拍掉身上的灰尘，似懂非懂地活动着四肢，比出胜利手势，最后，
+<p class="grey">“好耶！！！”</p>\
+
+[[“芜湖~”->ICB-完成2]] 
+
+
+:: icb-错误 {"position":"3100,1275","size":"100,100"}
+随意点了几个按钮后，你按下了启动键。
+然而如预期那样，什么事也没有发生。
+<p class="light-green">“可别把她弄坏了。要不还是我来吧？”</p>\
+一旁的声音让你倍感压力。
+
+[[返回->icb-内部]]
+
+
+:: jill [nobr] {"position":"700,1300","size":"100,100"}
+缀着星星图案的深紫色巫师帽拉得很低，几乎完全遮住脸，<br>
+你只能看到她抿起的嘴唇和两侧垂到腿上的白发。<br>
+她背后甚至有一根法杖，绿宝石嵌在顶端<br>
+<br>
+<<if !visited("jl-名字")>>[[询问她的名字->jl-名字]]<br><</if>>
+[[询问关于炼药锅的事->jl-锅]]<br>
+<<if $stage == 3>>[[询问关于出去的方法->jl-出去]]<br><</if>>
+<br>
+[[返回->yc-废墟]] 
+
+
+:: jl-出去 [nobr] {"position":"825,1550","size":"100,100"}
+<<if !visited("jl-获胜")>>
+  <p class="grey">“你真的这么想出去吗？<br>
+  ……嗯，那么最后，陪我玩一个小游戏吧，<br>
+  毕竟下次再见到人类，说不好会是什么时候的事情了。”</p>
+  <br>
+  [[同意->jl-游戏]]<br>
+<<else>>
+  <p class="grey">“出去的方法已经告诉你了，<br>
+  留意那些很可能是链接的文字，它们大概率是破损的传送门。<br>
+  不过，趁还在这儿，再玩一局怎么样。”</p>
+  <br>
+  [[玩游戏->jl-游戏]]<br>
+<</if>>
+<br>
+[[返回->jill]] 
+
+
+:: jl-名字 [nobr] {"position":"700,1425","size":"100,100"}
+<<if visited() == 1>><<set $name_count++>><</if>>
+<p class="grey">“Julianne，简称Jill。”</p>
+她有像风吹过麦田一样的声音。<br>
+
+<br>
+[[返回->jill]] 
+
+
+:: jl-失败 {"position":"450,1550","size":"100,100"}
+你拼尽全力计算着小球的轨迹，但一次又一次，总是刚好没能接住。
+<p class="grey">“真是轻松呐。是我宝刀未老，还是你火候不够呢？”</p>\
+你的对手靠在球桌边，轻松地转着拍子。
+
+[[再来一局->jl-游戏]] 
+[[返回->jill]] 
+
+
+:: jl-游戏 [nobr] {"position":"575,1425","size":"100,100"}
+<<set _jill = visited("jl-名字") ? "Jill" : "穿着巫师服的人">>
+<style>
+  #canva1 {
+      background-color: #000;
+      border: 2px solid #4CAF50;
+      border-radius: 5px;
+  }
+</style>
+
+<p class="grey">“不错不错，久违的对决。”</p>
+_jill伸了伸懒腰站起来，拍拍落在衣服上的灰尘，拿起魔杖，
+<p class="grey">“你相信这世界上有魔法吗？”</p>
+<br>
+话音未落，魔杖顶部钻出许多光点。<br>
+它们在空中舞蹈、连接，不一会儿问卷的空白处画出了一个游戏窗口。<br>
+<p class="grey">“请多指教。”</p>
+<br>
+<div class="center">
+@@.lemon;''先得5分者胜！''@@
+<div class="score-container">
+    <span>$player_name: <span id="playerScore">0</span></span>
+    <br>
+    <span>_jill: <span id="computerScore">0</span></span>
+</div><br>
+<button id="start-btn">开始游戏</button><br>
+<br>
+<canvas id="canva1" width="480" height="320"></canvas><br>
+<br>
+<<done>>
+  <<include "jl-游戏-js">>
+<</done>>
+
+<br>
+<<link "继续">>
+  <<script TwineScript>>
+    _my_score = Number($("#playerScore").text());
+    _jill_score = Number($("#computerScore").text());
+  <</script>>
+  <<if (_my_score >= 5 || _jill_score >= 5)>>
+    <<if _my_score > _jill_score>>
+      <<goto "jl-获胜">>
+    <<else>>
+      <<goto "jl-失败">>
+    <</if>>
+  <</if>>
+<</link>>
+<br>
+[[返回->jl-出去]]
+</div>
+
+
+:: jl-游戏-js {"position":"450,1425","size":"100,100"}
+/* 逆天nobr标签会导致js注释后面代码全被注释 */
+<<script>>
+// 获取Canvas和上下文
+const canvas = document.getElementById('canva1');
+const ctx = canvas.getContext('2d');
+
+canvas.tabIndex = 0;
+
+// 游戏元素尺寸
+const paddleHeight = 80;
+const paddleWidth = 10;
+const ballSize = 10;
+
+// 玩家挡板位置
+let playerY = (canvas.height - paddleHeight) / 2;
+let playerLastY = playerY;
+
+// 电脑挡板位置
+let computerY = (canvas.height - paddleHeight) / 2;
+let computerLastY = computerY;
+
+// 球的位置和速度
+let ballX = canvas.width / 2;
+let ballY = canvas.height / 2;
+let ballSpeedX = 5;
+let ballSpeedY = 3;
+
+// 得分
+let playerScore = 0;
+let computerScore = 0;
+
+// 游戏状态
+let gameRunning = false;
+let gameOver = false;
+
+function randint(min, max){
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
+// 鼠标/触摸移动事件
+canvas.addEventListener('mousemove', (e) => {
+    if (!gameRunning || gameOver) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const mouseY = e.clientY - rect.top;
+
+    // 确保挡板不会移出画布
+    playerY = Math.min(Math.max(mouseY - paddleHeight / 2, 0), canvas.height - paddleHeight);
+});
+
+// 触摸事件支持
+canvas.addEventListener('touchmove', (e) => {
+    if (!gameRunning || gameOver) return;
+    e.preventDefault();
+
+    const rect = canvas.getBoundingClientRect();
+    const touchY = e.touches[0].clientY - rect.top;
+
+    playerY = Math.min(Math.max(touchY - paddleHeight / 2, 0), canvas.height - paddleHeight);
+});
+
+canvas.addEventListener("keydown", (e) => {
+    if ((e.code == "Space" || e.code == "Enter")) {
+        document.getElementById("start-btn").click();
+        e.preventDefault();
+    }
+})
+
+document.getElementById("start-btn").addEventListener("click", (e) => {
+    if (!gameRunning) {
+        if (gameOver) {
+            resetGame();
+        }
+        gameRunning = true;
+        gameOver = false;
+        gameLoop();
+    }
+})
+
+// 重置游戏
+function resetGame() {
+    playerScore = 0;
+    computerScore = 0;
+    document.getElementById('playerScore').textContent = '0';
+    document.getElementById('computerScore').textContent = '0';
+    resetBall();
+}
+
+// 重置球的位置
+function resetBall() {
+    ballX = canvas.width / 2;
+    ballY = canvas.height / 2;
+
+    ballSpeedX =  ballSpeedY = 0;
+    setTimeout(() => {
+        // 随机决定球的方向
+        ballSpeedX = (Math.random() > 0.5 ? 1 : -1) * 5;
+        ballSpeedY = randint(-2, 2);
+    }, 777)
+}
+
+let computer_delay, computer_step;
+switch (settings.pong_level){
+    case "简单":
+        computer_delay = 20;
+        computer_step = 3;
+        break;
+    case "普通":
+        computer_delay = 10;
+        computer_step = 4;
+        break;
+    case "困难":
+        computer_delay = 5;
+        computer_step = 4
+        break;
+    case "炼狱":
+        computer_delay = 1;
+        computer_step = 5
+        break;
+}
+
+// 电脑AI移动
+function computerMove() {
+    const computerPaddleCenter = computerY + paddleHeight / 2;
+
+    // 简单AI：跟随球移动，但有一定延迟
+    if (computerPaddleCenter < ballY - computer_delay) {
+        computerY += computer_step;
+    } else if (computerPaddleCenter > ballY + computer_delay) {
+        computerY -= computer_step;
+    }
+
+    // 确保电脑挡板不会移出画布
+    computerY = Math.max(0, Math.min(computerY, canvas.height - paddleHeight));
+}
+
+// 绘制游戏元素
+function draw() {
+    // 清空画布
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // 绘制中间线
+    ctx.beginPath();
+    ctx.setLineDash([5, 5]);
+    ctx.moveTo(canvas.width / 2, 0);
+    ctx.lineTo(canvas.width / 2, canvas.height);
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // 绘制玩家挡板
+    ctx.fillStyle = '#4CAF50';
+    ctx.fillRect(0, playerY, paddleWidth, paddleHeight);
+
+    // 绘制电脑挡板
+    ctx.fillStyle = '#F44336';
+    ctx.fillRect(canvas.width - paddleWidth, computerY, paddleWidth, paddleHeight);
+
+    // 绘制球
+    ctx.beginPath();
+    ctx.arc(ballX, ballY, ballSize, 0, Math.PI * 2);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+    ctx.closePath();
+
+    // 显示游戏状态
+    if (!gameRunning && !gameOver) {
+        ctx.fillStyle = 'white';
+        ctx.font = '20px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('（点击窗口聚焦）', canvas.width / 2, canvas.height / 2 - 15);
+        ctx.fillText('空格开始，鼠标操控', canvas.width / 2, canvas.height / 2 + 10);
+    }
+
+    if (gameOver) {
+        ctx.fillStyle = 'white';
+        ctx.font = '24px Arial';
+        ctx.textAlign = 'center';
+
+        if (playerScore >= 5) {
+            ctx.fillText('你赢了！', canvas.width / 2, canvas.height / 2 - 15);
+            ctx.font = '18px Arial';
+            ctx.fillText('可以继续故事了。', canvas.width / 2, canvas.height / 2 + 20);
+            let pure_won = State.variables["won_jill"];
+            if (!pure_won) {
+              pure_won = 0;
+            }
+            State.setVar("$won_jill", pure_won + (playerScore - computerScore));
+        } else {
+            ctx.fillText('Jill赢了！', canvas.width / 2, canvas.height / 2 - 15);
+            ctx.font = '18px Arial';
+            ctx.fillText('按下空格重新开始', canvas.width / 2, canvas.height / 2 + 20);
+        }
+
+        gameRunning = false;
+    }
+}
+
+function collision(paddleY, paddleLastY) {
+    // 根据击中挡板的位置调整反弹角度
+    let deltaY = (paddleY + paddleHeight / 2 - ballY) / (paddleHeight / 2);
+    deltaY = Math.max(-1, Math.min(1, deltaY));
+    const bounce_angle = deltaY * (60 * (Math.PI / 180));
+
+
+    let overall_speed = Math.sqrt(ballSpeedX ** 2 + ballSpeedY ** 2);
+    overall_speed *= 1.02;
+    overall_speed += Math.abs((paddleY - paddleLastY) / (paddleHeight / 2));
+
+    ballSpeedY = -Math.sin(bounce_angle) * overall_speed;
+    if (ballSpeedX > 0) {
+        ballSpeedX = -Math.cos(bounce_angle) * overall_speed;
+    } else {
+        ballSpeedX = Math.cos(bounce_angle) * overall_speed;
+    }
+}
+
+// 更新游戏状态
+function update() {
+    if (!gameRunning || gameOver) return;
+
+    // 移动球
+    ballX += ballSpeedX;
+    ballY += ballSpeedY;
+
+    // 球与上下边界碰撞检测
+    if (ballY - ballSize < 0 || ballY + ballSize > canvas.height) {
+        ballSpeedY = -ballSpeedY;
+        ballY = Math.min(canvas.height - ballSize, Math.max(ballSize, ballY));
+    }
+
+    // 球与玩家挡板碰撞检测
+    if (ballX - ballSize < paddleWidth && 
+        ballY > playerY && 
+        ballY < playerY + paddleHeight) {
+        collision(playerY, playerLastY);
+        ballX = paddleWidth + ballSize;
+    }
+
+    // 球与电脑挡板碰撞检测
+    if (ballX + ballSize > canvas.width - paddleWidth && 
+        ballY > computerY && 
+        ballY < computerY + paddleHeight) {
+        collision(computerY, computerLastY);
+        ballX = canvas.width - paddleWidth - ballSize;
+    }
+
+    // 得分检测
+    if (ballX < 0) {
+        computerScore++;
+        $('#computerScore').text(computerScore);
+        resetBall();
+
+        // 检查游戏是否结束
+        if (computerScore >= 5) {
+            gameOver = true;
+        }
+    }
+
+    if (ballX > canvas.width) {
+        playerScore++;
+        $('#playerScore').text(playerScore);
+        resetBall();
+
+        // 检查游戏是否结束
+        if (playerScore >= 5) {
+            gameOver = true;
+        }
+    }
+    
+    playerLastY = playerY;
+    computerLastY = computerY;
+
+    // 电脑移动
+    computerMove();
+}
+
+// 游戏主循环
+function gameLoop() {
+    if (!gameRunning) return;
+
+    update();
+    draw();
+
+    requestAnimationFrame(gameLoop);
+}
+
+draw();
+<</script>>
+
+
+:: jl-获胜 [nobr] {"position":"575,1550","size":"100,100"}
+<<if visited() == 1>>
+  乒乒乓乓、你来我往。<br>
+  魔女有着与她给人印象不符的运动神经，但你也绝非泛泛之辈。<br>
+  几轮下来，看准了她的弱点，你一记削球终结了比赛。<br>
+  <br>
+  <p class="grey">“输了啊……看来你想出去的愿望不是一般地强。”</p>
+  她点了点头，
+  <p class="grey">“好吧，既然你本也不属于这片空间，<br>
+  最简单的出去方法，只要寻找那些隐藏的传送门就好。<br>
+  由于疏于检修，原本这里就有不少漏洞、损坏但不小心会把人卷进去的门。<br>
+  恐怕R的死亡加剧了这一现象，你看，没有路的地方不代表就不能走了。”</p>
+  <br>
+  [[再来一局->jl-游戏]]<br>
+  @@.hidden;[[返回->jill]]@@<br>
+<<else>>
+  <p class="grey">“好啊，一如既往强大的对手。”</p>
+  <br>
+  [[再来一局->jl-游戏]]<br>
+  [[返回->jill]]<br>
+<</if>>
+
+<br>
+<<if def $won_jill && $won_jill >= 10>>
+  <<set_ach "乒乓大师">>
+<</if>>
+
+
+:: jl-锅 {"position":"825,1425","size":"100,100"}
+<p class="grey">“很久以前他们用这锅炼出各种闻所未闻的东西——机械、矿机、轰炸机、炸弹……
+它神圣的部分快被吸干净了，如今不再会出现往日的奇迹。虽然还算能用。”</p>\
+
+[[返回->jill]] 
+
+
+:: lo-用户 [nobr autosave] {"position":"2150,550","size":"100,100"}
+<<set _xw = visited("xw-名字") ? "xuan2wei1" : "一位女生";
+  _br = visited("br-名字") ? "Br_O" : "有人";
+  _cy = visited("cy-名字") ? "canyu" : "沉思者";
+  _dodo = visited("dd-名字") ? "dodo" : "长着翅膀的人";
+>>
+[[服务员]]和蔼地盯着你，柜台上摆着一颗[[鸡蛋->000]]。<br>
+<br>
+放眼望去，十几张桌子间散布着相似的面孔，其中只有一些引起了你的注意。<br>
+<br>
+前排靠窗边的座位，[[_xw->xw]]正在看书。<br>
+<br>
+更深处，墙上一幅[[油画]]下面，[[_br->br]]趴在桌子上。<br>
+<br>
+<<if visited("cy-dodo卒")>>
+  还有[[_cy->canyu]]在阅读密码学书籍。<br>
+<<elseif visited("dd-紫阳花")>>
+  还有[[_cy->canyu]]在整理打完了的[[UNO]]。<br>
+<<else>>
+  还有[[_cy->canyu]]和对面[[_dodo->dodo]]在打[[UNO]]。<br>
+<</if>>
+<br>
+[[门口->lounge]]<br>
+[[返回->第五题]]
+
+
+:: lounge [nobr] {"position":"2500,850","size":"100,100"}
+<<set _aph = visited("al-名字") ? "alepha" : "长相可爱的男生";
+  _sora = visited("sr-名字") ? "sora" : "双马尾萝莉";
+  _icb = visited("icb-名字") ? "ICB_9" : "故障机器人"
+>>
+冠有“兰枝”之美名的休息室。尽管有些在被改造为咖啡厅，偶尔不太顾名思义。<br>
+玻璃擦得透亮，微风穿过敞开的大门，服务生正在柜台后清洗餐具。<br>
+<br>
+<<if !visited("icb-完成")>>
+  门口，[[_sora->sora]]坐在台阶边缘，[[_aph->aleph]]拿着各种工具仪器对[[_icb->ICB]]忙个不停。<br>
+<<else>>
+  门口，[[_sora->sora]]和[[_aph->aleph]]坐在台阶上，[[_icb->ICB]]四处转来转去。<br>
+<</if>>
+<br>
+“欢迎光临——”踏进门槛，长长的机械音就在你耳边响起。<br>
+此刻为时尚早，[[客人->lo-用户]]还不是很多。<br>
+<br>
+[[返回->第五题]]
+
+
+:: r-中文 [nobr] {"position":"425,675","size":"100,100"}
+<<if !visited("r-在哪")>>
+R犹豫地打量着你，从头到脚，而后叹了口气。<br>
+<br>
+<p class="grey">“之后再来问我这个问题吧，现在的你还没法理解。”</p>
+<<else>>
+<p class="grey">“正如先前所说，我只是R的投影，你在阅读的也是我的想法，因此用什么语言都无所谓。<br>
+不过看样子中文对你来说最方便，这张问卷就翻译出来了。”</p>
+<</if>>
+
+<br>
+[[返回->R]]
+
+
+:: r-可能 [nobr] {"position":"675,825","size":"100,100"}
+<p class="grey">“或许是@@.blue;DPG@@？<br>
+我早上似乎和他说过很多话，尽管当然，大部分只是我单方面地滔滔不绝。”</p>
+<<if visited() == 1>>
+  <br><<mission "找到DPG">>
+<</if>>
+<br>
+[[返回->R]]
+
+
+:: r-在哪 [nobr] {"position":"550,675","size":"100,100"}
+<p class="grey">“在哪？这是个好问题。<br>
+技术上来讲，这是某个无聊的问卷测试中，甚至称不上空间。<br>
+你在这里会遇到的大部分人——包括我——都只是粗制的复制品罢了。<br>
+我们徘徊在题目之间的缝隙当中，然后……消失。”</p>
+<br>
+[[返回->R]]
+
+
+:: r-完成 [nobr autosave] {"position":"550,825","size":"100,100"}
+R拿走你掏出的识别码，将它举在半空仔细辨认着。
+<p class="grey">“不错，看来它就是我丢的那一个。<br>
+不多说了，带路吧。”</p>
+<<if $bag["炸弹-隐藏"]>>
+  看来他没发现识别码已经和炸弹融合了。<br>
+  <<set $bomb_at = "R-secret">>
+<</if>>
+<<if visited() == 1>>
+  <br>
+  <<del_item "RRRrrr">>
+  <<add_friend "R">>
+  <<mission "带R去第七题">>
+<</if>>
+<br>
+[[返回->第一题]]
+
+
+:: r-谈判 [nobr] {"position":"675,675","size":"100,100"}
+<p class="grey">“又是这样吗……<br>
+也好，不是不可以答应你。<br>
+不过在此之前，希望你能帮我找回<span id="wave-text" class="light-brown">RRRrrr</span><br>
+它是我最爱的识别码，今早晕晕乎乎的，不知道不小心落在哪里了。”</p>
+<br>
+[[“它可能在哪？”->r-可能]]<br>
+<<if $bag["RRRrrr"]>>
+  [[给他RRRrrr->r-完成]]<br>
+<</if>>
+
+<br>
+[[返回->R]]
+
+<<done>>
+<<run setup.wave_text()>>
+<</done>>
+
+
+:: r-遗址 {"position":"925,550","size":"100,100"}
+踉踉跄跄地跌入此处，R曾经待过的缝隙间。
+西风带来干草的气息与候鸟的声音，一眼望不到头的野地满是枯萎和腐败。
+
+你走向他站在过的那片地方，什么也不想地感受着真实的世界，不可思议的折叠在一张A4中的真实的世界。
+不知过了多久，背后脚步声渐近，一个熟悉的声音在呼喊你。
+
+<<linkreplace "转身" t8n>><p class="awaya">“$player_name！
+找了你好半天影都不见，你怎么在这种地方啊……”</p>\
+阿瓦娅叹了口气，环顾空荡荡的四周，
+<p class="awaya">“这是哪……无所谓了，听我说。
+R死了，这个地方现在根基不稳，继续下去的话恐怕我们都要消失。
+
+嗯……我去找了Jill——这里元老级别的角色——
+不知道为什么，她说唯一有能力接替R维护这里的人就是你，$player_name。
+还说你有不得不负起这个责任的理由？
+
+我不明白，但决定权终究在你。
+接过这么大的担子，以后怕不能轻易脱身了……
+所以，你愿意成为下一个R吗？”</p>\
+
+[[“我愿意。”->SE_2]] 
+<</linkreplace>>
+[[返回->第一题]]
+
+
+:: sora {"position":"2775,875","size":"100,100"}
+<p class="grey">“啦啦啦~噔噔噔、嘟嘟噜噜~”</p>\
+萝莉膝上架着台笔记本电脑，她浅哼轻快的旋律，双手在键盘上敲个不停。\
+<<nobr>>
+  <<if $talked.sr>>
+    <p class="grey">“啊。请不要再揪我的头发了，谢谢……”</p>
+    见到你，她身体缩了缩，摆出防御姿态。
+  <</if>>
+<</nobr>>\
+
+<<if !visited("sr-名字")>>
+[[询问她的名字->sr-名字]]<</if>>
+[[询问关于GFW的事->sr-gfw]]
+[[“你在用电脑做什么？”->sr-电脑]]
+
+[[返回->lounge]]
+
+
+:: sr-gfw {"position":"2900,625","size":"100,100"}
+<<icebreak "sr">>\
+<p class="grey">“只凭我可没信心搞定那个大家伙……
+不过加上阿瓦娅和b9酱情况大概会有办法，她们都好厉害的。”</p>\
+
+[[返回->sora]] 
+
+
+:: sr-icb {"position":"3025,625","size":"100,100"}
+<p class="grey">“b9酱原本跟我和pha一起，前几天刚从西边来，走水路来兰枝。
+其实才来那会儿她就有点儿不对劲了，只是我们都没当回事，以为是惯例情绪问题。
+结果嘛……就成这样啦，进水导致的机械故障。”</p>\
+
+[[返回->sora]] 
+
+
+:: sr-初次 [nobr] {"position":"2900,750","size":"100,100"}
+银白色的双马尾在两边随着她的动作一摆一摆，引得你下意识凑近揪了揪。<br>
+<p class="grey">“呀！”</p>
+毫无防备地，她发出可爱的声音，眨着水汪汪的大眼睛望向你，
+<p class="grey">“你好，请不要揪我的头发……”</p>
+
+
+:: sr-名字 [nobr] {"position":"2775,750","size":"100,100"}
+<<if visited() == 1>><<set $name_count++>><</if>>
+<<icebreak "sr">>
+<p class="grey">“我是sora哦。<br>
+天空是很美丽的名字，对吧。”</p>
+<<dpg "sora">>
+  <p class="grey">“看来你确实这么觉得ww”</p>
+<</dpg>>
+
+<br>
+[[返回->sora]] 
+
+
+:: sr-哥哥 {"position":"2900,875","size":"100,100"}
+<p class="grey">“嗯，我的表哥，叫做haru。
+小时候经常在一起玩，但自从他考上高中搬到其他城市去后，我们之间联系机会就越来越少了……
+好想再见他一面。”</p>\
+她从口袋中掏出一张照片，在某座瀑布前，比现在更年幼的她头戴草帽，呆呆地含着一根雪糕。
+身边和她发色相同的男孩子搂住她的肩膀，开朗地笑着。
+
+[[返回->sora]] 
+
+
+:: sr-电脑 {"position":"3025,750","size":"100,100"}
+<<icebreak "sr">>\
+<p class="grey">“我正在到处寻找哥哥……”</p>\
+她沮丧地叹了口气，
+<p class="grey">“啊，当然，也有在和pha一起修b9酱啦，只是暂时看来还没到我出场的时机。”</p>\
+
+[[“你的哥哥……”->sr-哥哥]]
+[[“话说ICB_9……”->sr-icb]]
+
+[[返回->sora]] 
+
+
+:: widget [widget nobr non-text] {"position":"1100,0","size":"100,100"}
+<<widget "my_link">><span @class="_args[0]">_args[1]</span><</widget>>
+
+<<widget "replace_div" container>>
+  <<link _args[0]>>
+    <<replace _args[1]>>_contents<</replace>>
+  <</link>>
+<</widget>>
+
+<<widget "c_link">>
+  <<link _args[0] _args[1]>>
+    <<if !tags().includes("non-text")>>
+      <<set $last_p = passage()>>
+    <</if>>
+    <<if tags().includes("items")>>
+      <<set $bag_flag = true>>
+    <</if>>
+  <</link>>
+<</widget>>
+
+<<widget "home">>
+  <<if $last_p>>
+    <<link "返回" $last_p>><</link>>
+  <<else>>
+    <<link "返回" "主菜单">><</link>>
+  <</if>>
+<</widget>>
+
+<<widget "system">>
+  <p class="lemon">_args[0]</p>
+<</widget>>
+
+<<widget "mission">>
+  <<system "目标已更新">>
+  <<set $mission = _args[0]>>
+<</widget>>
+
+<<widget "item">>
+  <p class="dark-green">_args[0]</p>
+<</widget>>
+
+<<widget "space">>
+  <<for _i range _args[0]>>&emsp;<</for>>
+<</widget>>
+
+<<widget "enhance">>
+  <p class="lemon">//_args[0]// 获得了加强</p>
+<</widget>>
+
+<<widget "icebreak">>
+  <<if !$talked[_args[0]]>>
+    <<set _psg = _args[0] + "-初次">>
+    <<include _psg>>
+    <<set $talked[_args[0]] = 1>>
+  <</if>>
+<</widget>>
+
+<<widget "dpg" container>>
+  <<if ndef $dpged>>
+    <<if _args.indexOf($player_name) != -1>>
+      _contents
+      <br>
+      <<set_ach "二重身">>
+      <<set $dpged = true>>
+    <</if>>
+  <</if>>
+<</widget>>
+
+
+:: xw {"position":"2150,400","size":"100,100"}
+走近一看，这是位穿着与周围格格不入的汉服的女子，
+<<nobr>>
+<<if !$talked.xw>>
+  经过时，她只抬头迅速向你投来一瞥，便重新埋首于书中。
+<<else>>
+  见到你，她轻轻点头以示问候。
+<</if>>
+<</nobr>>
+她双手托着的书看上去相当有厚度，从这个角度没法分辨书名或内容。\
+
+<<if !visited("xw-名字")>>
+[[询问她的名字->xw-名字]]<</if>>
+[[询问有关GFW的事->xw-gfw]]
+[[“你在看的是什么书？”->xw-书]]
+
+[[返回->lo-用户]] 
+
+
+:: xw-gfw [nobr] {"position":"2125,250","size":"100,100"}
+<<if ndef $gfw_bomb>>
+  <<icebreak "xw">>
+  <p class="grey">“GFW？死了算了。呃，我倒没什么能摧毁它的方法，就连为自己找梯子都累得够呛了。”</p>
+  她的声音听起来不是很高兴。<br>
+<<else>>
+  <p class="grey">“刚刚那个声音……是你真的把GFW摧毁了？？佬。。。”</p>
+  你感到她看你的眼神都多了几分敬畏。<br>
+<</if>>
+
+<br>
+[[返回->xw]]
+
+
+:: xw-书 {"position":"2125,125","size":"100,100"}
+<<icebreak "xw">>\
+<p class="grey">“嗯……”</p>\
+她翻转手腕，向你展示了淡紫色的书皮，
+上面模糊的字体写着的，似乎是与算法相关内容，
+不知为何底下是一张猫娘的配图。
+
+[[返回->xw]]
+
+
+:: xw-初次 [nobr] {"position":"2250,125","size":"100,100"}
+<p class="grey">“诶，我？”</p>
+稍稍吃了一惊，她大约没想到你会向她搭话，
+
+
+:: xw-名字 [nobr] {"position":"2250,250","size":"100,100"}
+<<icebreak "xw">>
+<<if visited() == 1>><<set $name_count++>><</if>>
+<p class="grey">“xuan2wei1。觉得长的话简称为xw也没问题。”</p>
+<<dpg "xw" "xuan2wei1">>
+  <p class="grey">“你、你说你和我名字一样？呃、我真的搞不懂了……”</p>
+<</dpg>>
+
+<br>
+[[返回->xw]]
+
+
+:: yc-废墟 [nobr autosave] {"position":"900,1100","size":"100,100"}
+<<set _jill = visited("jl-名字") ? "Jill" : "穿着巫师服的人">>
+一脚踏进石板上的水洼，头顶昏黄的吊灯摇摇欲坠。<br>
+四周是裂开的墙面，蛛网与爬山虎正在将它们占领。<br>
+<br>
+[[_jill->jill]]守在一口[[大锅->yc-锅]]前，脱落的泥块堆积在她脚下。<br>
+<br>
+[[返回->YC]] 
+
+
+:: yc-杂草 [nobr] {"position":"500,1000","size":"100,100"}
+无人打理的草地，最终被荒芜吞噬是自然。<br>
+<<if !visited("yc-纸片")>>
+  不远处草间一张反光的[[白色纸片->yc-纸片]]吸引了你的视线。<br>
+<</if>>
+<br>
+[[返回->YC]] 
+
+
+:: yc-纸片 [nobr] {"position":"500,1125","size":"100,100"}
+你弯腰捡起纸片。<br>
+标题潦草地写着“ICB内核启动指令”。<br>
+<p class="light-green">竟然在这种地方……”</p>
+
+<<if visited() == 1>>
+  <br>
+  <<add_item "启动指令">>
+<</if>>
+
+<br>
+[[返回->yc-杂草]]
+
+
+:: yc-锅 [nobr] {"position":"1025,1100","size":"100,100"}
+一口大锅，冒着古怪的绿色蒸汽。<br>
+
+<<run
+  _item_list = setup.get_bag();
+  if (!_item_list.length) {
+    _item_list = ["无"];
+  }
+>>
+<br>
+材料1：<<listbox "$pot_1" autoselect>>
+	<<optionsfrom _item_list>>
+<</listbox>><br>
+材料2：
+<<listbox "$pot_2" autoselect>>
+	<<optionsfrom _item_list>>
+<</listbox>><br>
+<br>
+[[放入锅中->锅-混合]]<br>
+<br>
+[[返回->yc-废墟]] 
+
+
+:: 一片羽毛-desc [non-text] {"position":"0,500","size":"100,100"}
+沾着血迹，曾经属于一只灭绝鸟类的羽毛，或者遗物。
+铁锈味令人悲伤。
+
+[[返回->背包]]
+
+
+:: 一盒UNO-desc [non-text] {"position":"0,600","size":"100,100"}
+带盒子、一套八成新的UNO，正面画着一个咧嘴笑的娃娃。
+
+[[返回->背包]]
+
+
+:: 主菜单 [non-text] {"position":"400,300","size":"100,100"}
+<div class="center">\
+<<type 100ms>>!!!印刷不太清晰的@@.hidden;[[测试问卷]]@@<</type>>
+<<if !visited("开始")>>
+[[开始]]
+<</if>>
+<<link "新一张">><<run UI.restart()>><</link>>
+
+<<autoload>>
+
+[[成就]]
+
+[[更新日志]]
+
+[[制作人员->credits]] 
+
+[[退出]]
+<<if $last_p>>
+<<home>>
+<</if>>
+</div>
+
+
+:: 剪贴板 [non-text] {"position":"1600,0","size":"100,100"}
+<p class="grey">“”</p>
+
+<br>
+
+<<widget "">>
+
+<</widget>>
+
+
+:: 启动指令-desc [non-text] {"position":"200,600","size":"100,100"}
+''ICB系列机器人启动指令''
+\
+<blockquote>
+诞生于黑暗之东，
+阿瓦岭之右，
+万籁俱寂的时刻，归零的时刻。
+她们心脏偏向的方向，
+西部召唤着热血，
+同没于地下的黄金。
+从北极，
+到南极，
+第三个也无法成功，
+她们于9时安眠。
+</blockquote>
+\
+一张从笔记本撕下的纸上用花体写着一首……诗？
+
+[[返回->背包]]
+
+
+:: 填写姓名 {"position":"675,400","size":"100,100"}
+昵称：<<textbox "$player_name" "Nickname" "第一题" autofocus>>
+
+[[确认->第一题]]
+
+
+:: 开始 {"position":"550,400","size":"100,100"}
+过了立秋的下午，空气中已然添了寒意。
+你快步走在回家的路上，正在盘算晚饭该吃什么。
+突然，一位形迹可疑的人拦住了你，塞给你一张纸。
+
+那仔细一看是一张调查卷，顶部大大地印着“HackChat认知程度测试”几字。
+你想起来了，Hack.Chat，曾经访问过的聊天网站，
+可它为什么会出现在这里呢？
+
+[[开始答题->填写姓名]]
+
+
+:: 引爆器-desc [non-text nobr] {"position":"200,500","size":"100,100"}
+只有正中心一个红色按钮的遥控器。<br>
+放好炸弹后按下就能引爆了，在此之前千万不要手滑……<br>
+
+<<if def $bomb_at>>
+  <<switch $bomb_at>>
+    <<case "gfw">>
+      你记得你把炸弹埋在GFW边上了。<br>
+    <<case "dodo">>
+      你记得你把炸弹藏在dodo翅膀下面了。<br>
+    <<case "R">>
+      你记得你把炸弹放在R衣服里了。<br>
+    <<case "R-secret">>
+      你记得你把炸弹和RRRrrr融化，交给R了。<br>
+  <</switch>>
+  <br>
+  [[引爆->引爆器-引爆]]
+<</if>>
+<br>
+[[返回->背包]]
+
+
+:: 引爆器-引爆 [non-text nobr autosave] {"position":"350,500","size":"100,100"}
+<<switch $bomb_at>>
+  <<case "gfw">>
+    “@@.shake;//''嘭！''//@@”撼天动地的巨响伴随着什么建筑倒塌的声音，在每个人脚下弥漫开来。<br>
+    毫无疑问，这次GFW是真的被炸毁了。<br>
+    同时也意味着，你终于可以过去到另一边了。<br>
+    <<set $gfw_bomb = true>><br>
+    <<mission "将识别码交给R">>
+    
+  <<case "dodo">>
+    与他拉开一段距离后，你毫不犹豫地按下了引爆按钮。<br>
+    “@@.shake;//''咚！''//@@”炸开的声音夹杂着鸟类特有尖锐的爆鸣响起，热浪扑面。<br>
+    等你睁开眼睛，眼前只剩下四处飞溅的血肉与散落一地的羽毛了。<br>
+    <br>
+    <<del_friend "dodo">>
+    <<add_item "一片羽毛">>
+  
+  <<case "R">>
+      抑制住激动不已的心情，你迫不及待地按下了按钮。<br>
+      <br>
+     ……然而，几秒过去了，在脑中模拟过无数次的爆炸与火光丝毫不见影子。<br>
+     正当你疑惑是不是按错按钮，急促的滴滴声忽然在你胸前左侧响了起来。<br>
+     <p class="grey">“跟我玩这种小把戏，你怕还是太早了点啊。”</p>
+     一双手从背后搭在你肩上——那是R的手，
+     <p class="grey">“再见。”</p>
+     来不及反应。被用力一推，你从问卷边缘跌出了世界。<br>
+     <br>
+      [[等——->DE_1]]
+  <<case "R-secret">>
+    <<silent>><<del_item "炸弹-隐藏">><</silent>>
+    抑制住激动不已的心情，你迫不及待地按下了按钮。<br>
+    把炸弹藏在他最爱的识别码中，你相信这一招即使是R也不会猜到。<br>
+    <br>
+    短暂的延迟，紧接着爆炸。意料之外又情理之中地，R就那样紧紧揣着他视若珍宝的木牌，和它一起化为了灰烬，没有留下任何痕迹。<br>
+    不出一分钟，周围变得什么也发生、幻觉一样，保存那场爆炸的只剩记忆。<br>
+    你有点不确定自己是否真的做到这种事了，一直以来感到压迫着的胸口也没有变得舒畅。<br>
+    <br>
+    <<mission "">>
+    <<set $r_bomb = true>>
+<</switch>>
+<<unset $bomb_at>>
+<br>
+<<home>>
+
+
+:: 成就 [nobr non-text] {"position":"500,100","size":"100,100"}
+<<set _normal_achs = {
+    "即使如此，兰枝依然转动": ["达成NE 1", "兰枝不会总是兰枝，但总会是兰枝。"],
+    "墙外世界": ["达成NE 2", "没有GFW大家就会好起来，是真的吗？！"],
+    "加拿大冠军": ["达成NE 3", "事已至此，先开局UNO吧。"],
+    "魔爪少女": ["达成NE 4", "她简直是超人！"],
+
+    "佬": ["答对测试所有题目", "作者都不一定做得到。"],
+    "小菜一碟": ["帮助陌生人解开谜题", "我还能做十道！"],
+    "起死回生": ["救助故障的机器人", "小心溺水。"],
+    "乒乓大师": ["同一周目，在乒乓游戏中累计净胜10球", "药剂魔法使会梦到赛博张继科吗？"]
+  };
+  _secret_achs = {
+    "地球上最后一只渡渡鸟": ["达成SE 1", "或许你还不知道吧，天空也是由言语构成的。"],
+    "弑君者": ["达成SE 2", "一代王终将死去，但总有人充满野心。"],
+ 
+    "我超，盒！": ["询问所有人的名字", "国家统计局打过来了？"],
+    "速通选手": ["达成NE ?", "对不起，我赶时间。"],
+    "柚子厨蒸鹅心": ["解答谜题时填入谜之数字", "Ciallo～(∠・ω< )⌒★"],
+    "二重身": ["与任意一位角色撞名", "Doppelgänger. . ."],
+  };
+  _very_secret_achs = {
+    /* 别看源码了听见没 */
+  };
+  
+  _all_achs = Object.assign({}, _normal_achs, _secret_achs, _very_secret_achs);
+  _my_achs = State.metadata.get("achs") || [];
+>>
+
+<<if $ach_mode == 0>>
+  [[仅显示已解锁成就->成就][$ach_mode = 1]]<br>
+灰色为未解锁成就。<br>
+<br>
+<<for _ach, _text range _normal_achs>>
+  <<if _my_achs.indexOf(_ach) != -1>>
+    <p class="lemon">【''_ach''】_text[0]<br>
+    <<space 2>>“//_text[1]//”</p>
+  <<else>>
+    <p class="grey">【''_ach''】_text[0]</p>
+  <</if>>
+<</for>>
+<br>
+<<for _ach, _text range _secret_achs>>
+  <<if _my_achs.indexOf(_ach) != -1>>
+    <p class="lemon">【''_ach''】_text[0]<br>
+    <<space 2>>“//_text[1]//”</p>
+  <<else>>
+    <p class="grey">【''_ach''】隐藏成就，解锁后可查看详情</p>
+  <</if>>
+<</for>>
+<br>
+<<for _ach, _text range _very_secret_achs>>
+  <<if _my_achs.indexOf(_ach) != -1>>
+    <p class="awaya">【''_ach''】_text[0]<br>
+    <<space 2>>“//_text[1]//”</p>
+  <</if>>
+<</for>>
+
+<<else>>
+  [[显示所有成就->成就][$ach_mode = 0]]<br>
+  <br>
+<<for _i, _ach range _my_achs>>
+  <p class="lemon">【''_ach''】_all_achs[_ach][0]<br>
+  <<space 2>>“//_all_achs[_ach][1]//”</p>
+<</for>>
+
+<</if>>
+<br>
+[[重置所有成就->清空成就]]<br>
+<br>
+[[返回->主菜单]]
+
+
+:: 打火机-desc [non-text] {"position":"100,400","size":"100,100"}
+靠谜之火焰为动力运作，永不熄灭的打火机。
+摸起来很暖和，盖上盖子才能勉强使你的手不被灼伤。
+
+[[返回->背包]]
+
+
+:: 故事大纲 [non-text] {"position":"1400,0","size":"100,100"}
+括号为没想好的内容
+
+/*****************/
+CE就没必要带R去第七题老老实实答完了，可以放飞点
+
+SE 1（dodo）：
+dodo加入队伍，给dodo魔爪，带你飞出问卷
+
+CE 3（可回收）：
+通过CE2提示的隐藏链接，出试卷，撕毁试卷
+
+/******************/
+更大的结局：
+BE:
+
+
+TE:
+
+/******************/
+可加入的元素：
+* HCWiki（图鉴？）
+
+* 角色：404、23、cmd
+
+* 角色支线
+
+* <p>物品：
+  金币、商店、隐藏链接检测器
+  时光机：回到以前的HC访问老用户
+</p>
+
+/******************/
+草稿：
+sora:
+萝莉、寻找哥哥
+………………
+
+aleph:
+sora的哥哥……？但隐藏身份，因为（）
+工程大师
+
+icb:
+故障机器人，存储有试卷存在之初起的零星记录
+给予（），能激发阿瓦娅的力量，
+
+
+:: 更新日志 [non-text] {"position":"700,100","size":"100,100"}
+25.8.26： 新增NE 4，2个SE（Secret Ending），一些人物和场景
+
+25.8.23： 1.0启动
+
+[[返回->主菜单]]
+
+
+:: 服务员 [nobr] {"position":"2000,550","size":"100,100"}
+<p class="awaya">“上午好啊，这里是阿瓦娅为您服务，<br>
+有什么可以帮到您的吗？”</p>
+正当你疑惑服务员为何如此面熟时，她自己报上了名。<br>
+<br>
+<<if !visited("awy-名字")>>
+  [[询问她的名字->awy-名字]]<br>
+<</if>>
+[[“我以为你在门口呢。”->awy-疑问]]<br>
+[[“关于前面的GFW……”->awy-gfw]]<br>
+<br>
+[[返回->lo-用户]] 
+
+
+:: 油画 {"position":"2000,700","size":"100,100"}
+一副色彩饱和的后印象派画作，画框四周镶着花边，挂在墙上。
+画面描绘的是某处夜晚的咖啡店门口，慵懒的来客与街上匆匆的行人。
+天上深蓝的夜色与店内温暖的橙黄形成鲜明对比，隔着玻璃也能察觉到一些冷清的孤独感满溢而出。
+
+[[返回->lo-用户]] 
+
+
+:: 测试问卷 [non-text] {"position":"1000,200","size":"100,100"}
+''404''
+你似乎来到了没有知识存在的荒原。
+
+只是一些花絮。
+
+[img[花絮1|/static/highlight1.png]]
+
+[img[花絮2|/static/highlight2.png]]
+
+[[返回->主菜单]]
+
+
+:: 清空成就 [nobr non-text] {"position":"500,0","size":"100,100"}
+危险操作，请再次确认。<br>
+<br>
+<<link "确认" "成就">>
+  <<run State.metadata.clear()>>
+<</link>>
+<<space 2>>
+[[取消->成就]]
+
+
+:: 炸弹-desc [non-text] {"position":"200,400","size":"100,100"}
+沉甸甸的金属制炸弹，杀伤力强悍，仅仅是拿着便使人不寒而栗。
+如果能找到合适的地方安放就好了。
+
+[[返回->背包]]
+
+
+:: 第一题 {"position":"800,400","size":"100,100"}
+<<if $stage == 0>>\
+1. Hack.Chat里有几个R？
+
+A. [[3个->第二题]]
+B. [[2个->第二题]]
+C. [[1个->第二题][$correct++]]
+D. [[0个->第二题]]
+<<else>>\
+1. Hack.Chat里有几个<<noobr>>
+<<if !visited("r-完成")>>
+  [[R->R]]
+<<elseif def $r_bomb>>
+  @@.hidden;[[R->r-遗址]]
+<<else>>
+R
+<</if>>
+<</noobr>>？
+
+A. 3个
+B. 2个
+C. 1个
+D. 0个
+
+[[下一题->第二题]]
+<</if>>
+
+
+:: 第七题 [nobr] {"position":"1600,800","size":"100,100"}
+7. GFW是被什么打败的？<br>
+<br>
+A. [[炸弹->结束][$seven = "bomb"]]<br>
+B. [[鸟->结束][$seven = "bird"]]<br>
+C. [[UNO->结束][$seven = "uno"]]<br>
+D. [[阿瓦娅->结束][$seven = "awaya"]]<br>
+<br>
+<<if !visited("r-完成")>>（等等，你从哪儿过来的？！）<</if>>
+
+
+:: 第三题 {"position":"1050,400","size":"100,100"}
+3. 原版Hack.Chat客户端JS的函数中不包括以下哪个功能？
+<<if $stage == 0>>
+A. [[清除输入框->第四题]]
+B. [[@自动补全->第四题]]
+C. [[反LaTeX炸弹->第四题][$correct++]]
+D. [[屏蔽用户->第四题]]
+<<else>>
+A. 清除输入框
+B. @自动补全
+C. 反LaTeX炸弹
+D. 屏蔽用户
+
+[[下一题->第四题]]
+[[上一题->第二题]]
+<</if>>
+
+
+:: 第二题 {"position":"925,400","size":"100,100"}
+<<if $stage == 0>>\
+2. 原版Hack.Chat主页有多少个频道？
+
+A. [[12个->第三题]]
+B. [[11个->第三题]]
+C. [[10个->第三题]]
+D. [[9个->第三题][$correct++]]
+<<else>>\
+2. 原版Hack.Chat主页有多少个频道？
+
+A. 12个
+B. 11个
+C. 10个
+D. 9个
+
+[[下一题->第三题]]
+[[上一题->第一题]]
+<</if>>
+
+
+:: 第五题 {"position":"1325,550","size":"100,100"}
+<<if $stage == 0>>\
+5. lounge活跃度为什么能反超YC？
+
+A. [[YC常驻人员不稳定->第六题][$correct++]]
+B. [[YC没有阿瓦娅->第六题]]
+C. [[lo在主页占有更好的位置->第六题]]
+D. [[lo的用户更加友善->第六题]]
+<<else>>\
+5. <<noobr>>
+<<if visited("GFW")>>
+  [[lounge]]
+<<else>>
+  lounge
+<</if>>
+<</noobr>>活跃度为什么能反超[[YC]]？
+
+A. YC常驻人员不稳定
+B. YC没有<<if !$friends.has("阿瓦娅")>>[[阿瓦娅]]<<else>>阿瓦娅<</if>>
+C. lo在主页占有更好的位置
+D. lo的用户更加友善
+
+[[下一题->第六题]]
+[[上一题->第四题]]
+<</if>>
+
+
+:: 第六题 {"position":"1450,550","size":"100,100"}
+<<if $stage == 0>>\
+6. DPG的性别是？
+
+A. [[男->BOSS战]]
+B. [[女->BOSS战]]
+C. [[其他->BOSS战]]
+D. [[我不知道->BOSS战]]
+<<set $correct++>>
+<<else>>\
+6. [[DPG]]的性别是？
+
+A. 男
+B. 女
+C. 其他
+D. 我不知道
+
+[[下一题->BOSS战]]
+[[上一题->第五题]]
+<</if>>
+
+
+:: 第四题 {"position":"1200,550","size":"100,100"}
+4. 为了优化Hack.Chat的体验，站长都做了什么？
+<<if $stage == 0>>
+A. [[增加Channel Owner->第五题]]
+B. [[修建GFW->第五题]]
+C. [[监视聊天室->第五题]]
+D. [[以上都是->第五题][$correct++]]
+<<elseif $stage == 1>>
+A. 增加Channel Owner
+B. 修建GFW
+C. 监视聊天室
+D. 以上都是
+
+[[下一题->第五题]]
+[[上一题->第三题]]
+<<else>>
+A. 增加Channel Owner
+B. 修建<<noobr>>
+<<if def $gfw_bomb || visited("GFW-awy")>>
+  [[!@#%$->GFW遗址]]
+<<else>>
+  [[GFW]]
+<</if>>
+<</noobr>>
+C. 监视聊天室
+D. 以上都是
+
+[[下一题->第五题]]<<if def $gfw_bomb || visited("GFW-uno") || visited("GFW-awy")>>
+[[上一题->第三题]]<</if>>
+<</if>>
+
+
+:: 紫阳花-desc [non-text] {"position":"100,500","size":"100,100"}
+或者叫绣球，一朵一朵蓝色的小花簇拥成一团，淡淡绽放着。
+梅雨季已经过去，在枯萎之前，还是想把她交给谁。
+
+[[返回->背包]]
+
+
+:: 结束 [nobr] {"position":"2000,1175","size":"100,100"}
+<<if visited() == 1>>
+  <<if def $gfw_bomb && $seven == "bomb">>
+    <<set $correct++>>
+  <<elseif visited("GFW-uno") && $seven == "uno">>
+    <<set $correct++>>
+  <<elseif visited("GFW-dodo") && $seven == "bird">>
+    <<set $correct++>>
+  <<elseif visited("GFW-awy") && $seven == "awaya">>
+    <<set $correct++>>
+  <</if>>
+<</if>>
+<<set $last_p = "">>
+
+<div class="center">
+测试结束。<br>
+<br>
+共答对 $correct / 7 道题，感谢参与。<br>
+<br>
+
+/* 成就判断 */
+<<if $name_count == 10>> /* 兰枝室内6个 + 门口3个 + YC1个 */
+  <<set_ach "我超，盒！">><br>
+<</if>>
+<<if $correct == 7>>
+  <<set_ach "佬">><br>
+<</if>>
+
+/* 结局判断 */
+<<if def $gfw_bomb>>
+  [[结局->NE_2]]
+<<elseif visited("GFW-uno")>>
+  [[结局->NE_3]] 
+<<elseif visited("GFW-awy")>>
+  [[结局->NE_4]] 
+<<elseif !visited("r-完成")>>
+  [[结局->NE_?]]
+<<else>>
+  [[结局->NE_1]]
+<</if>>
+</div>
+
+
+:: 统计 [non-text] {"position":"600,100","size":"100,100"}
+敬请期待……
+
+[[返回->主菜单]]
+
+
+:: 背包 [nobr non-text] {"position":"100,250","size":"100,100"}
+不知道从哪里来的背包。<br>
+<br>
+<<for _name, _count range $bag>>
+  <<set _psg_name = _name + "-desc">>
+  <<if Story.has(_psg_name)>>
+    <<if _count == 1>>
+      <<link _name _psg_name>><</link>><br>
+    <<else>>
+      <<link _name _psg_name>><</link>>：_count<br>
+    <</if>>
+  <</if>>
+<</for>>
+<br>
+<<home>>
+
+
+:: 背景设定 [non-text] {"position":"1500,0","size":"100,100"}
+
+
+
+:: 退出 [non-text] {"position":"800,100","size":"100,100"}
+想多了，网页没有这种功能。
+
+请手动退出。感谢游玩。
+
+[[返回->主菜单]]
+
+
+:: 锅-混合 [nobr] {"position":"1025,1225","size":"100,100"}
+你将<<= $pot_1 || "无">>与<<= $pot_2 || "无">>投入沸腾的锅中，<br>
+“咕嘟咕嘟。”<br>
+水面泛起泡泡，一段时间过后……<br>
+<br>
+
+<<if $pot_1 == "RRRrrr" && $pot_2 == "炸弹">>
+  成功了！<br>
+  <br>
+  <<silent>><<add_item "炸弹-隐藏">><</silent>>
+  <<del_item $pot_2>>
+  <<enhance "RRRrrr">>
+<<else>>
+  <<set _jill = visited("jl-名字") ? "Jill" : "穿着女巫服的人">>
+  什么也没有发生，锅将它们又吐了出来。<br>
+  <br>
+  <p class="grey">“没有按照预期发生反应的话，不妨调换材料顺序再试试。”</p>
+  _jill建议道。<br>
+<</if>>
+
+<<if def _successed>>
+  <<del_item $pot_1>>
+  <<del_item $pot_2>>
+<</if>>
+
+<br>
+[[返回->yc-锅]]
+
+<<unset $pot_1 $pot_2>>
+
+
+:: 队伍 [nobr non-text] {"position":"100,875","size":"100,100"}
+受吸引而与你同行的伙伴们。<br>
+<br>
+<<for _i, _name range $friends>>
+  <<set _psg_name = _name + "-desc">>
+  <<link _name _psg_name>><</link>><br>
+<</for>>
+<br>
+<<home>>
+
+
+:: 阿瓦娅 [nobr] {"position":"1325,400","size":"100,100"}
+淡粉短发的少女探出头来，冲你好奇地眨着眼睛。
+<p class="awaya">“你好呀，这里是自助服务机器人阿瓦娅！有什么能帮到你吗？”</p>
+
+<<dpg "awa_ya" "阿瓦娅">>
+  <p class="awaya">“——诶、你也叫阿瓦娅？啊……啊？”</p>
+  阿瓦娅眼冒金星，自我认同迷失中……<br>
+<</dpg>>
+
+<br>
+[[“你在这里做什么？”->awy1-做什么]]<br>
+[[“你的主人去哪里了？”->awy1-主人]]<br>
+[[“能帮忙解决GFW吗？”->awy1-gfw]]<br>
+[[摸摸头->awy1-摸头]]<br>
+<br>
+[[返回->第五题]]
+
+
+:: 阿瓦娅-desc [non-text] {"position":"200,1000","size":"100,100"}
+因为喝了饮料而变得热情高涨的青春机器人，随时准备给GFW一拳。
+
+[[返回->队伍]]
+
+
+:: 魔爪-desc [non-text] {"position":"100,600","size":"100,100"}
+柠檬味魔爪，瓶身很酷炫。
+强大的功能性饮料，无论人与机器人都很喜欢喝。
+
+[[返回->背包]]
+
+
+:: StoryScript [script]
+/*** Config ***/
+Config.saves.maxAutoSaves = 1;
+Config.saves.isAllowed = function (saveType) {
+	if (saveType === Save.Type.Auto) {
+		return tags().includes("autosave");
+	}
+
+	return true;
+};
+Config.saves.descriptions = function (saveType) {
+	return passage();
+};
+
+/*** Macro ***/
+// 直接删除空行，而不是像内置nobr把空行变成空格（太细了）
+Macro.add("noobr", {
+  	tags: ["/noobr"],
+    handler() {
+        const content = this.payload[0].contents
+            .replace(/\n\s*|\s*(?=<<)|(?<=>>)\s*/gm, "");
+        
+        jQuery(this.output).wiki(content);
+    }
+});
+
+/*** Settings ***/
+Setting.addList("pong_level", {
+	label   : "乒乓球难度",
+	list    : ["简单", "普通", "困难", "炼狱"],
+	default : "普通"
+});
+
+/*** JS function ***/
+setup.wave_text = function(){
+  const text = document.getElementById('wave-text');
+  const content = text.textContent;
+  text.innerHTML = '';
+
+  for (let i = 0; i < content.length; i++) {
+    const span = document.createElement('span');
+    span.textContent = content[i];
+    span.style.animation = `wave 1.5s ease-out ${i * 0.1}s infinite`;
+    span.style.display = `inline-block`;
+    text.appendChild(span);
+  }
+};
+
+setup.get_bag = function () {
+    let bag = [];
+    Object.entries(State.getVar("$bag"))
+      .forEach(([item, count]) => {
+        if (Story.has(item + "-desc")) {
+            bag.push(item);
+        }
+    });
+    return bag;
+};
+
+
+/*** Localization ***/
+;
+(() => {
+	l10nStrings.textAbort = '中止';
+	l10nStrings.textAborting = '操作中止';
+	l10nStrings.textCancel = '取消';
+	l10nStrings.textClear = '清空';
+	l10nStrings.textClose = '关闭';
+	l10nStrings.textDelete = '删除';
+	l10nStrings.textExport = '导出';
+
+	// In lowercase, if possible.
+	l10nStrings.textIdentity = '游戏';
+	l10nStrings.textImport = '导入';
+	l10nStrings.textLoad = '加载';
+	l10nStrings.textOff = '关';
+	l10nStrings.textOk = '确定';
+	l10nStrings.textOn = '开';
+	l10nStrings.textSave = '保存';
+
+	// (noun) chance to act (in a game), moment, period
+	l10nStrings.textTurn = '回合';
+
+
+	// NOTE: `passage` is supplied locally.
+	l10nStrings.errorNonexistentPassage = '段落"{passage}"不存在';
+
+
+	l10nStrings.warningNoStorage = '提供存储功能的API缺失。可能是由于第三方Cookie设置被禁用（这也会影响Web Storage API），或处于隐私浏览模式。';
+
+	l10nStrings.warningNoWebStorage = 'Web Storage API缺失，因此该{textIdentity}在降级模式下运行。你可以继续，但一些部分可能无法正常工作。';
+
+	l10nStrings.warningDegraded = '某些支持该{textIdentity}所需的功能缺失，因此运行于降级模式下。你可以继续，但一些部分可能无法正常工作。';
+
+	l10nStrings.warningNoSaves = '某些支持保存所需的功能缺失，因此在本次会话中已禁用存档。';
+
+
+	l10nStrings.saveErrorDisallowed = '当前不允许存档。';
+
+	l10nStrings.saveErrorDecodeFail = '无法解码存档，可能是由于存档损坏';
+
+	l10nStrings.saveErrorDiskLoadFail = '读取本地存档文件失败';
+
+	l10nStrings.saveErrorIdMismatch = '存档不属于该{textIdentity}';
+
+	l10nStrings.saveErrorInvalidData = '存档缺少所需数据，可能是由于存档损坏';
+
+	l10nStrings.saveErrorNonexistent = '存档不存在';
+
+
+	l10nStrings.uiBarLabelToggle = '展开/收起UI栏';
+
+	l10nStrings.uiBarLabelBackward = '在{textIdentity}历史记录中后退';
+
+	l10nStrings.uiBarLabelForward = '在{textIdentity}历史记录中前进';
+
+	// [DEPRECATED]
+	l10nStrings.uiBarLabelJumpto = '跳转至{textIdentity}历史记录中的某一点';
+
+
+
+	l10nStrings.alertTitle = '警告';
+
+
+	l10nStrings.restartTitle = '重新开始';
+
+	l10nStrings.restartMesgPrompt = '当前游戏未保存的进度都将丢失。确定要重新开始吗？';
+
+
+	l10nStrings.continueTitle = '继续';
+
+	l10nStrings.savesTitle = '保存';
+
+	l10nStrings.savesHeaderBrowser = '浏览器内（覆盖存档前请先删除原存档）';
+
+	l10nStrings.savesHeaderDisk = '本地';
+
+	l10nStrings.savesLabelBrowserClear = '清空浏览器存档';
+
+	l10nStrings.savesLabelBrowserExport = '导出浏览器存档为bundle';
+
+	l10nStrings.savesLabelBrowserImport = '从bundle导入浏览器存档';
+
+	l10nStrings.savesLabelDiskLoad = '从本地加载';
+
+	l10nStrings.savesLabelDiskSave = '保存至本地';
+
+	l10nStrings.savesTextBrowserAuto = '自动保存';
+
+	l10nStrings.savesTextBrowserSlot = '槽位';
+
+	l10nStrings.savesTextNoDate = '未知时间';
+
+
+	l10nStrings.settingsTitle = '设置';
+
+	l10nStrings.settingsTextReset = '重置为默认值';
+
+
+	l10nStrings.errorViewTitle = '错误';
+
+	l10nStrings.errorViewLabelToggle = '展开/收起错误视图';
+
+
+	l10nStrings.debugBarLabelToggle = '展开/收起调试栏';
+
+	l10nStrings.debugBarLabelViewsToggle = '展开/收起调试视图';
+
+	l10nStrings.debugBarLabelWatchAdd = '添加监视';
+
+	l10nStrings.debugBarLabelWatchAll = '监视所有变量';
+
+	l10nStrings.debugBarLabelWatchClear = '清空所有监视';
+
+	l10nStrings.debugBarLabelWatchDelete = '删除该监视';
+
+	l10nStrings.debugBarLabelWatchPlaceholder = '变量名称';
+
+	l10nStrings.debugBarLabelPassagePlaceholder = '段落名称';
+
+	l10nStrings.debugBarLabelPassagePlay = '播放段落';
+
+	l10nStrings.debugBarLabelWatchToggle = '展开/收起监视面板';
+
+	l10nStrings.debugBarMesgNoWatches = '没有设置监视';
+
+	l10nStrings.debugBarTextAdd = '添加';
+
+	l10nStrings.debugBarTextPassage = '段落';
+
+	l10nStrings.debugBarTextViews = '视图';
+
+	l10nStrings.debugBarTextWatch = '监视';
+
+  
+	// (verb) rewind, revert
+	l10nStrings.macroBackText = '回退';
+
+	// (verb) go/send back
+	l10nStrings.macroReturnText = '返回';
+  
+
+	l10nStrings.autoloadTitle = '读取自动存档';
+
+	l10nStrings.autoloadMesgPrompt = '检测到自动存档。加载存档，还是从头开始？';
+
+	l10nStrings.autoloadTextCancel = '从头开始';
+
+	l10nStrings.autoloadTextOk = '加载存档';
+
+
+	l10nStrings.jumptoTitle = '跳转至';
+
+	l10nStrings.jumptoMesgUnavailable = '当前无可用跳转点\u2026';
+
+
+	l10nStrings.shareTitle = '分享';
+})();
+
+:: StoryStylesheet [stylesheet]
+p, h3 {
+  margin: 0;
+}
+blockquote {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+input[type=text] {
+  min-width: auto;
+}
+
+.center {
+  text-align: center;
+}
+.hidden a {
+    color: inherit;
+    text-decoration: none;
+    cursor: text;
+}
+.hidden a:hover, .hidden a:active, .hidden a:focus {
+    color: inherit;
+    text-decoration: none;
+}
+
+.blue {
+  color: #66ccff;
+}
+.grey {
+  color: #909090;
+}
+.black {
+  color: #3B3B3B;
+  text-shadow: -2px -2px 0 #FFEBCD,
+                2px -2px 0 #FFEBCD,
+                -2px 2px 0 #FFEBCD,
+                2px 2px 0 #FFEBCD;
+}
+.light-purple {
+  color: #B23AEE;
+}
+.light-brown {
+  color: #999966;
+}
+.light-green {
+  color: #cccccc;
+}
+.light-blue {
+  color: #AEEEEE;
+}
+.lemon {
+  color: #d9da1f;
+}
+.dark-green {
+  color: #99cc99;
+}
+.awaya {
+  color: #f1ad9d;
+}
+
+#wave-text > span {
+  will-change: transform;
+}
+.shake {
+    animation: shake 0.2s ease-in-out infinite;
+    -webkit-animation: shake 0.2s ease-in-out infinite;
+}
+span.shake {
+    display: inline-block;
+}
+
+@keyframes wave {
+  /*0%, 50%, 100% {transform: translateY(0); }*/
+  25% { transform: translateY(-5px); }
+  75% { transform: translateY(5px); }
+}
+@keyframes shake {
+    25% { transform: translate(1px, 1px); }
+    75% { transform: translate(-1px, -1px); }
+}
+
+.macro-type-cursor:after {
+	color: #d9da1f;
+}
