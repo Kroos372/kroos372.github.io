@@ -89,6 +89,7 @@ quiz
   你就永远被困在这里吧，呵呵……<br>
   <br>
   [[上一题->第六题]]
+  
   <<set $stage = 3>>
 
 <<else>>
@@ -99,9 +100,14 @@ quiz
   <<del_friend "R">>
   <br>
   [[下一题->第七题]]
-<<silent>><<mission "">><</silent>>
+<<silent>>
+  <<mission "">>
+  <<if def $bomb_at && ($bomb_at == "R" || $bomb_at == "R-secret")>>
+    <<unset $bomb_at>>
+    <<del_item "炸弹-隐藏">>
+  <</if>>
+<</silent>>
 <</if>>
-
 
 
 :: DE_1 {"position":"1700,1400","size":"100,100"}
@@ -132,6 +138,10 @@ quiz
 
 <br>
 [[打招呼->dpg-招呼]]<br>
+
+<<if !visited("dpg-名字")>>
+  [[询问他的名字->dpg-名字]]<br>
+<</if>>
 
 <<if visited("r-可能")>>
   [[“你和R之间发生什么了吗？”->dpg-withr]]<br>
@@ -173,9 +183,11 @@ quiz
 
 <<if $friends.has("dodo")>>
   [[让dodo载你飞过去->GFW-dodo]]<br>
-<<elseif $bag["一盒UNO"] && !visited("GFW-uno")>>
+<</if>>
+<<if $bag["一盒UNO"] && !visited("GFW-uno")>>
   [[与GFW进行UNO对决->GFW-uno]]<br>
-<<elseif $friends.has("阿瓦娅")>>
+<</if>>
+<<if $friends.has("阿瓦娅")>>
   [[让阿瓦娅打破GFW->GFW-awy]]<br>
 <</if>>
 
@@ -228,7 +240,7 @@ HC十数年间进化出的精华、养育她的水土：
 他又说了一遍，领着你到几百米高空，轻轻越过了GFW，
 <p class="grey">“可惜这种高度还不太够过瘾。<br>
 若有朝一日我重回巅峰状态，可以带$player_name公去领略世界之外的风景。”</p>
-<<if visited() == 1>>
+<<if visited() == 1 && !($gfw_bomb || visited("GFW-awy"))>>
   <br>
   <<mission "将识别码交给R">>
 <</if>>
@@ -538,7 +550,7 @@ Quiz 2 ... ?
 
 
 :: StorySubtitle {"position":"100,0","size":"100,100"}
-v1.1
+v1.1.1
 
 
 :: UNO [nobr] {"position":"2300,700","size":"100,100"}
@@ -1220,6 +1232,14 @@ dodo轻轻扑扇两下翅膀，悬停在空中，衣角随风飞舞。
 [[返回->DPG]]
 
 
+:: dpg-名字 {"position":"1350,850","size":"100,100"}
+<<if visited() == 1>><<set $name_count++>><</if>>\
+<p class="grey">“Abab.”</p>\
+你已经知道他叫DPG了。
+
+[[返回->DPG]] 
+
+
 :: dpg-打火机 [nobr] {"position":"1600,1100","size":"100,100"}
 <p class="grey">“……”</p>
 无脸人接过你拿出的打火机，将盖子打开又关上、打开又关上……<br>
@@ -1263,6 +1283,75 @@ dodo轻轻扑扇两下翅膀，悬停在空中，衣角随风飞舞。
 <</if>>
 <br>
 [[返回->DPG]] 
+
+
+:: fox-名字 {"position":"625,1000","size":"100,100"}
+<<if visited() == 1>><<set $name_count++>><</if>>\
+<p class="grey">“FoxHC……嗯，不是什么需要特别记的名字，说到底我只是只狐狸罢了。”</p>\
+
+[[返回->foxHC]] 
+
+
+:: fox-提示 [nobr] {"position":"500,1250","size":"100,100"}
+<<if visited("cy-谜题")>>
+  <<linkreplace "关于canyu的谜题……">>
+  <p class="grey">“这也要问我吗……好吧。<br>
+  三个字母缩略的含义你不可能不知道——<br>
+  然后去寻找数字吧，遇到不像数字的东西时记住，不一定要用10数。”</p>
+  <</linkreplace>><br><br>
+<</if>>
+
+<<if visited("icb-内部")>>
+  <<linkreplace "关于icb的修理……">>
+  <p class="grey">“你找到启动指令了吗？<br>
+  稍微发挥下想象力，10行中有有7、8行大概都不是问题。<br>
+  至于莫名其妙出现的时间？画个钟表试试。”</p>
+  <</linkreplace>><br><br>
+<</if>>
+
+<<if visited("锅-混合")>>
+  <<linkreplace "关于锅的混合……">>
+  <p class="grey">“目前只有一种可混合的东西，它可以让材料2隐藏于材料1之中。”</p>
+  <</linkreplace>><br><br>
+<</if>>
+
+<<if visited("jl-获胜")>>
+  <<linkreplace "关于“隐藏传送门”……">>
+  <p class="grey">“这里的故障相当严重啊……<br>
+  不妨回到你最初来的地方，那个死去的亡魂……”</p>
+  <</linkreplace>><br><br>
+<</if>>
+
+<<linkreplace "关于更多结局……">>
+  <p class="grey">“4个普通结局（NE）可不要让我浪费口舌了。<br>
+  【地球上最后一只渡渡鸟】中，渡渡鸟需要能让它振奋的东西；<br>
+  【弑君者】，如字面意思，你得尝试“弑君”。遇到困难的话，YC废弃的炼药锅和魔女也许能帮上你的忙。”</p>
+<</linkreplace>><br><br>
+
+<p class="grey">“还有问题吗？<br>
+走投无路时就到处转转吧，总会有人帮助你的。”</p>
+<br>
+[[返回->foxHC]] 
+
+
+:: foxHC [nobr] {"position":"625,1125","size":"100,100"}
+<<if visited() == 1>>
+  你拨开杂草的声音惊吓了它。<br>
+  橙色的影子飞窜，转眼间到了你好几米开外。<br>
+  那是一只狐狸。<br>
+  <br>
+<</if>>
+  <p class="grey">“$player_name……就是你吗。</p>
+  它开口了，沙哑的声音稍微吓了你一跳，
+  <p class="grey">“我的主人告诉我，会有彷徨的灵魂来此寻求帮助……没想到这么早。<br>
+  怎么，你有什么疑问吗？”</p>
+  <br>
+  <<if !visited("fox-名字")>>
+  [[询问它的名字->fox-名字]]<br>
+  <</if>>
+  [[获取提示->fox-提示]]<br>
+<br>
+[[返回->yc-杂草]] 
 
 
 :: icb-gfw [nobr] {"position":"2975,1025","size":"100,100"}
@@ -1785,7 +1874,7 @@ draw();
   由于疏于检修，原本这里就有不少漏洞、损坏但不小心会把人卷进去的门。<br>
   恐怕R的死亡加剧了这一现象，你看，没有路的地方不代表就不能走了。”</p>
   <br>
-  [[再来一局->jl-游戏]]<br>
+  @@.hidden;[[再来一局->jl-游戏]]@@<br>
   @@.hidden;[[返回->jill]]@@<br>
 <<else>>
   <p class="grey">“好啊，一如既往强大的对手。”</p>
@@ -2166,6 +2255,11 @@ R死了，这个地方现在根基不稳，继续下去的话恐怕我们都要�
 
 :: yc-杂草 [nobr] {"position":"500,1000","size":"100,100"}
 无人打理的草地，最终被荒芜吞噬是自然。<br>
+<<if !visited("foxHC")>>
+  “窸窸窣窣”，[[草丛->foxHC]]中有什么在响动。<br>
+<<else>>
+  橘白相间的[[狐狸->foxHC]]从草中窜出，警惕地和你保持着距离。<br>
+<</if>>
 <<if !visited("yc-纸片")>>
   不远处草间一张反光的[[白色纸片->yc-纸片]]吸引了你的视线。<br>
 <</if>>
@@ -2355,6 +2449,7 @@ R死了，这个地方现在根基不稳，继续下去的话恐怕我们都要�
     你有点不确定自己是否真的做到这种事了，一直以来感到压迫着的胸口也没有变得舒畅。<br>
     <br>
     <<mission "">>
+    <<del_friend "R">>
     <<set $r_bomb = true>>
 <</switch>>
 <<unset $bomb_at>>
@@ -2466,6 +2561,7 @@ TE:
 * HCWiki（图鉴？）
 
 * 角色：404、23、cmd
+cmd: 如果加我本人的话，想法是 一处破地的废弃控制台 ，这样子还可以扩展谜题（比如执行点东西来继续）
 
 * 角色支线
 
@@ -2491,6 +2587,7 @@ icb:
 
 :: 更新日志 [non-text] {"position":"700,100","size":"100,100"}
 25.8.26： 新增NE 4，2个SE（Secret Ending），一些人物和场景
+同上：放只狐狸，修bug，修bug，以及修bug
 
 25.8.23： 1.0启动
 
@@ -2736,7 +2833,7 @@ D. 以上都是
 <br>
 
 /* 成就判断 */
-<<if $name_count == 10>> /* 兰枝室内6个 + 门口3个 + YC1个 */
+<<if $name_count == 12>> /* 兰枝室内6个 + 门口3个 + YC1个 + Fox1个 + DPG1个 */
   <<set_ach "我超，盒！">><br>
 <</if>>
 <<if $correct == 7>>
